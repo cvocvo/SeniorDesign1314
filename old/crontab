@@ -1,0 +1,3 @@
+*/5 * * * * /usr/share/pear/idle_user.php
+*/5 * * * * /usr/share/pear/configure_machines.php
+*/5 * * * * /usr/share/pear/configure_machines.php
