@@ -25,9 +25,9 @@
 			$this->ENABLE_LOGGING = 1;
 
 			$this->MYSQL_HOSTNAME = "localhost";
-			$this->MYSQL_USERNAME = "wseclab";
+			$this->MYSQL_USERNAME = "root";
 			$this->MYSQL_DATABASE = "wseclab";
-			$this->MYSQL_PASSWORD = "I47F1uDtaJj4671";
+			$this->MYSQL_PASSWORD = "password"; #lulz
 			$this->MYSQL_TABLE 	= "user";
 			$this->MYSQL_PORT_TABLE ="portdef";
 			
@@ -36,9 +36,9 @@
 			$this->ATTACK_SUFFIX = "_attack";
 			$this->CLIENT_SUFFIX = "_client";
 
-			$this->WEB_USER = "http";
-			$this->WEB_ROOT = "/srv/http/";
-			$this->WEB_HOME = "/home/http/";
+			$this->WEB_USER = "user1";
+			$this->WEB_ROOT = "/var/www/";
+			$this->WEB_HOME = "/home/user1/";
 
 			$this->PHP_PATH = "/usr/share/pear/";
 			
