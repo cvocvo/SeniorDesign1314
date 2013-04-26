@@ -11,7 +11,8 @@
 		{
 			$this->MAX_SESSION_LENGTH = 7200;
 			$this->SESSION_REFRESH_LENGTH = 7200;
-			$this->HYPERVISOR_HOSTNAME = "root@wseclab-admin.student.iastate.edu";
+			$this->HYPERVISOR_HOSTNAME = "root@129.186.215.200";
+					#"root@wseclab-admin.student.iastate.edu";
 			
 			$this->BOOT_PATH = "/vmfs/volumes/datastore1/wnsl-tools/provisionandboot.sh";
 			$this->DEVICECOUNT_PATH = "/vmfs/volumes/datastore1/wnsl-tools/getdevicecount.sh";
