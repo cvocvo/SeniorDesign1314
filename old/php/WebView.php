@@ -23,8 +23,8 @@
 			echo '<div id="loginwrap">';
 			echo '<div id="login">';
 			echo '<form action="index.php" name="login" method="post">';
-			echo '<input type="text" name="uname" class="rounded" value="Username" />&nbsp;';
-			echo '<input type="password" name="upass" class="rounded" value="Password"/>';
+			echo '<input type="text" name="uname" class="rounded" placeholder="Username" />&nbsp;';
+			echo '<input type="password" name="upass" class="rounded" placeholder="Password"/>';
 			echo '<input type="submit" value="login" name="login" /></form>';
 			echo '</div>';
 		}
