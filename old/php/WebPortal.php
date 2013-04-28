@@ -26,7 +26,7 @@
 			include_once ($conf->PHP_PATH."hypervisor_com.php");
 
 			$this->db = new db_backend();
-			$this->hypev = new hypervisor_com();
+			#$this->hypev = new hypervisor_com();
 
 			$this->logging = $conf->ENABLE_LOGGING;
 			$this->logfile = "/var/log/wseclab.d/webportal.log";
@@ -48,6 +48,7 @@
 		{	
 			// If auth_user returns a value user's credentials are valid.
 			$uid = $this->db->auth_user($user, $password);
+			echo $this->db->auth_user($user, $password);
 			
 			if(is_numeric($uid))
 			{
