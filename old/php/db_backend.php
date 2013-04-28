@@ -70,8 +70,8 @@
 		********************************************************************************************************/
 		public function auth_user($uname, $upass)
 		{
-			if($this->has_symbols($uname) or $this->has_symbols($upass))
-				return "ERROR: Username and password must be alpha-numeric";
+			#if($this->has_symbols($uname) or $this->has_symbols($upass))
+			#	return "ERROR: Username and password must be alpha-numeric";
 			if(strlen($uname) < 1)
 				return "ERROR: Username cannot be blank";
 			if(strlen($upass) < 1)
