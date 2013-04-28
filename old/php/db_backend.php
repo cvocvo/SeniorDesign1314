@@ -20,8 +20,8 @@
 		********************************************************************************************************/
 		public function add_user($uname, $upass)
 		{
-			if($this->has_symbols($uname) or $this->has_symbols($upass))
-				return "ERROR: Username and password cannot contain symbols";
+			if($this->has_symbols($uname))# or $this->has_symbols($upass))
+				return "ERROR: Username cannot contain symbols";
 			if(strlen($uname) < 1)
 				return "ERROR: Username cannot be blank";
 			if(strlen($uname) > 16)
@@ -141,8 +141,8 @@
 		public function change_pass($uid, $upass)
 		{
 
-			if($this->has_symbols($uid) or $this->has_symbols($upass))
-				return "ERROR: Password must be alpha-numeric";
+			if($this->has_symbols($uid))# or $this->has_symbols($upass))
+				return "ERROR: Username must be alpha-numeric";
 			if(strlen($upass) < 1)
 				return "ERROR: Password cannot be blank";
 
