@@ -20,8 +20,8 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-			<li class="active"><a href="#">Virtual Machines</a></li>
-			<li><a href="#">Change Password</a></li>
+			<li class="active"><a href="#">Class Manager</a></li>
+			<li><a href="#">Admin Tools</a></li>
 			<li><a href="#">Log Out</a></li>
         </ul>
 		<img src="img/logo.png" alt="logo"/>
@@ -29,21 +29,48 @@
       </div>
 	  
 	  <div class="row">
-		<div class="col-md-6">
-			<h4>Instructions</h4>
-			<ol>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
-				<li>Lorem ipsum bacon</li>
+		<div class="col-md-12">
+			<ol class="breadcrumb">
+			  <li><a href="#">Class Manager</a></li>
+			  <li><a href="#">CPRE 530 Section 2</a></li>
+			  <li class="active">[INSERT STUDENT NAME]</li>
 			</ol>
+			<h4>Currently Viewing Student: [INSERT STUDENT NAME]</h4>
 		</div>
 	  </div>
-
+	  
+	  <div class="jumbotron row padT20">
+		<div class="col-md-12">
+			<h2>Edit Student Details</h2>
+			<form>
+				<p>*Only fields with information in them will be changed.</p>
+				<div class="form-group">
+					<p>Student Name:</p>
+					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
+				</div>
+				<div class="form-group">
+					<p>Username (email address):</p>
+					<input type="text" class="form-control" name="username" placeholder="somestudentemail@iastate.edu">
+				</div>
+				<p>Change Password:</p>
+				<div class="form-group">
+					<input type="password" class="form-control" name="newpassword" placeholder="*Enter NEW Password">
+				</div>
+				<div class="form-group">
+					<input type="password" class="form-control" name="newpassword2" placeholder="*Enter NEW Password Again">
+				</div>
+				<p>Change the class this student is in:</p>
+				<div class="form-group">
+					<select class="form-control">
+					  <option>CPRE 530 Section 1</option>
+					  <option>CPRE 530 Section 2</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-success">Save Changes</button>
+			</form>
+		</div>
+      </div>
+	  
       <div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-green clearPadding">
 			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
@@ -51,11 +78,9 @@
 		<div class="col-md-11">
 			<h3 class="clearMargin">[bacon ipsum machine name] &mdash; Status: Online</h3>
 			<p class="padT10"><strong>IP Address:</strong> 129.186.234.191</p>
-			<p class="padT10"><strong>Time Remaining:</strong> 47 minutes</p>
 			<div class="padT10">
 				<a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down</a>
 				<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete VM</a>
-				<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew VM Time Remaining</a>
 			</div>
 		</div>
       </div>

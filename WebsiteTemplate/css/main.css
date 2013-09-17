@@ -16,6 +16,7 @@ html,body
 .padA5 { padding:5px; }			/*padding to all sides 5px*/
 .padB20 {padding-bottom: 20px;}
 .smallFont {	font-size:10px; line-height:12px;} /*font size 10px */
+.font48 { font-size:48px; }
 .minH50{ min-height: 50px; } /*min height 50px;*/
 .maxH345 { max-height: 345px; } /*max height 345px*/
 .maxW150{ max-width: 150px; } /*max width 150px*/
@@ -28,6 +29,8 @@ html,body
 
 .palette-green { color:#47a447; }
 .palette-green:hover { color:#398439; }
+.palette-white { color:#FFF; }
+.palette-darkgray { color:#282828; }
 .palette-BC-green { background-color:#47a447; }
 .palette-BC-medgray { background-color:#aaa; }
 .palette-BC-red	{ background-color:#d2322d; }
@@ -84,6 +87,18 @@ html,body
 	height: 100px;
 	min-height: 100%;
 	border-radius: 4px;
+}
+
+.statusPillIcon {
+	font-size:48px;
+	padding-left:6px;
+	padding-top:24px;
+}
+
+#classManagerList > li {
+	padding-top:20px;
+	padding-bottom:10px;
+	border-bottom:solid 1px #282828;
 }
 
 /* Responsive: Portrait tablets and up */
