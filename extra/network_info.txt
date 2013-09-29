@@ -1,0 +1,11 @@
+DNS, mask and gateway for our network
+IPs range from 129.186.215.201 to 129.186.215.215
+our vmware hypervisor is at 129.186.215.200
+
+ip	129.186.215.202
+mask	255.255.255.224
+gateway	129.186.105.254
+
+dns	129.186.140.200
+	129.186.78.200
+	129.186.142.200
