@@ -1,5 +1,11 @@
 <?php
 
+
+/**
+* controller class for the admin class view page
+* receives page arguments and interacts with the model
+* in order to render the page
+*/
 class Admin_class_view_Controller
 {
 
@@ -11,8 +17,8 @@ class Admin_class_view_Controller
                 //determine which model is needed
 
                 $view = new View_Model($this->template);
-
-                //determine which dynamic variables are needed
+                
+		//determine which dynamic variables are needed
 
         }
 
