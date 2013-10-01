@@ -28,11 +28,17 @@ class Login_Controller
 			$database = new Database_Model;
 
 			if($database->authenticate($user, $pass)){
+
+				session_start();
+				$_SESSION['user'] = $user;
+		
 				if($database->is_admin($user)){
 					$this->admin_logged_in();
+					$_SESSION['is_admin'] = True;
 				}
 				else{
 					$this->user_logged_in();
+					$_SESSION['is_admin'] = False;
 				}
 			}
 			else{

@@ -20,9 +20,9 @@
     <div class="container">
       <div class="header">
 		<ul class="nav nav-pills pull-right">
-			<li><a href="#">Virtual Machines</a></li>
-			<li class="active"><a href="#">Change Password</a></li>
-			<li><a href="#">Log Out</a></li>
+			<li><a href="<?print(SITE_ROOT . '/index.php?user_index');?>">Virtual Machines</a></li>
+			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?change_password');?>">Change Password</a></li>
+			<li><a href="<?print(SITE_ROOT . '/index.php?logout');?>">Log Out</a></li>
         </ul>
 		<img src="img/logo.png" alt="logo"/>
         <h3 class="text-muted">Wireless Security Lab</h3>

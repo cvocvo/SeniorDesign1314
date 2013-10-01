@@ -20,9 +20,9 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-			<li class="active"><a href="#">Class Manager</a></li>
-			<li><a href="#">Admin Tools</a></li>
-			<li><a href="#">Log Out</a></li>
+			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?admin_class_manager');?>">Class Manager</a></li>
+			<li><a href="<?print(SITE_ROOT . '/index.php?admin_tools');?>">Admin Tools</a></li>
+			<li><a href="<?print(SITE_ROOT . '/index.php?logout');?>">Log Out</a></li>
         </ul>
 		<img src="img/logo.png" alt="logo"/>
         <h3 class="text-muted">Wireless Security Lab</h3>
