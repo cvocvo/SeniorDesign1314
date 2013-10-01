@@ -1,6 +1,6 @@
 <?php
 
-class Admin_tools__Controller
+class Admin_tools_Controller
 {
 
 
