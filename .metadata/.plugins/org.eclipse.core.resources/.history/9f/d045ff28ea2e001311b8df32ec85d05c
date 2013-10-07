@@ -1,0 +1,147 @@
+package javacom;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.TextArea;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+
+import java.awt.Label;
+import java.awt.Choice;
+import java.awt.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+
+public class JavaCom extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField urlTextField;
+	private JTextField querystringTextField;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private Boolean isGet = false;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JavaCom frame = new JavaCom();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JavaCom() {
+		setTitle("JavaCom");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 550, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		TextArea serverResponseTextArea = new TextArea();
+		serverResponseTextArea.setBounds(10, 192, 514, 259);
+		contentPane.add(serverResponseTextArea);
+		
+		JLabel lblServerResponse = new JLabel("Server Response:");
+		lblServerResponse.setBounds(10, 172, 118, 14);
+		contentPane.add(lblServerResponse);
+		
+		Label label = new Label("URL:");
+		label.setBounds(10, 10, 50, 22);
+		contentPane.add(label);
+		
+		Label label_1 = new Label("Query String:");
+		label_1.setBounds(10, 38, 86, 22);
+		contentPane.add(label_1);
+		
+		Label label_2 = new Label("Send Message Interval:\r\n");
+		label_2.setBounds(10, 66, 139, 22);
+		contentPane.add(label_2);
+		
+		Label label_3 = new Label("Protocol:");
+		label_3.setBounds(10, 144, 62, 22);
+		contentPane.add(label_3);
+		
+		urlTextField = new JTextField();
+		urlTextField.setBounds(75, 12, 385, 20);
+		contentPane.add(urlTextField);
+		urlTextField.setColumns(10);
+		
+		querystringTextField = new JTextField();
+		querystringTextField.setColumns(10);
+		querystringTextField.setBounds(99, 40, 395, 20);
+		contentPane.add(querystringTextField);
+		
+		List messageIntervalList = new List();
+		messageIntervalList.setBounds(173, 66, 190, 73);
+		contentPane.add(messageIntervalList);
+		
+		JRadioButton rdbtnGet = new JRadioButton("GET");
+		buttonGroup.add(rdbtnGet);
+		rdbtnGet.setBounds(78, 144, 50, 23);
+		contentPane.add(rdbtnGet);
+		
+		JRadioButton rdbtnPost = new JRadioButton("POST");
+		rdbtnPost.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	isGet = false;
+            }
+        });  
+		buttonGroup.add(rdbtnPost);
+		rdbtnPost.setBounds(133, 143, 62, 23);
+		contentPane.add(rdbtnPost);
+		
+		final JButton btnStartSending = new JButton("Start Sending");
+		btnStartSending.setBounds(385, 144, 139, 23);
+		btnStartSending.addActionListener(new ActionListener() {
+ 
+            public void actionPerformed(ActionEvent e)
+            {
+            	if (btnStartSending.getText() == "Start Sending")
+            	{
+            		btnStartSending.setText("Stop Sending");
+            	}
+            	else
+            	{
+            		btnStartSending.setText("Start Sending");
+            	}
+            	
+                startSending();
+            }
+        });  
+		contentPane.add(btnStartSending);
+		
+	}
+	
+	private void startSending()
+	{
+		btnStartSending
+		//btnStartSending.
+	}
+}
