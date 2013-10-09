@@ -21,7 +21,7 @@
       <div class="header">
 		<ul class="nav nav-pills pull-right">
 			<li><a href="<?print(SITE_ROOT . '/index.php?user_index');?>">Virtual Machines</a></li>
-			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?change_password');?>">Change Password</a></li>
+			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?user_change_password');?>">Change Password</a></li>
 			<li><a href="<?print(SITE_ROOT . '/index.php?logout');?>">Log Out</a></li>
         </ul>
 		<img src="img/logo.png" alt="logo"/>
@@ -31,8 +31,9 @@
       <div class="jumbotron row">
 		<div class="col-md-10 col-md-offset-1">
 			<h2>Change Password</h2>
-			<form>
+			<form action="index.php" method="post">
 				<p>*All fields required in order to change password</p>
+				<input type="hidden" name="page" value="user_change_password"/>
 				<div class="form-group">
 					<input type="email" class="form-control" name="password" placeholder="*Enter Current Password">
 				</div>

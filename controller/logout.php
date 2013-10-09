@@ -5,8 +5,11 @@ class Logout_Controller{
 
 	public function main(){
 
-		session_destroy();
-
+//		session_destroy();
+		
+			$number_of_days = 365;
+			$date_of_expiry = time() -2592000 * $number_of_days;
+			setcookie("username", $_COOKIE['username'], $date_of_expiry, "/");
 		$this->redirect();	
 
 

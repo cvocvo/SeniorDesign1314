@@ -1,8 +1,7 @@
 <?php
 
 class Login_Controller
-{
-
+{	
 
         public $template = 'login';
 
@@ -20,25 +19,31 @@ class Login_Controller
 
 		include_once(SERVER_ROOT . '/model/database_model.php');
 
+//		session_start();
 		//only login if they agree not to break ALL the laws
 		if(isset($_POST['agree'])){
-			$user = $_POST['username'];
+			
+			$user = $_POST['username'];			
+			$number_of_days = 365;
+			$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days;
+			setcookie("username", $_POST['username'], $date_of_expiry, "/");
 			$pass = $_POST['password'];
 
 			$database = new Database_Model;
 
 			if($database->authenticate($user, $pass)){
 
-				session_start();
-				$_SESSION['user'] = $user;
+//				$_SESSION['user'] = $user;
 		
 				if($database->is_admin($user)){
+					// set cookie is admin
 					$this->admin_logged_in();
-					$_SESSION['is_admin'] = True;
+//					$_SESSION['is_admin'] = True;
 				}
 				else{
+					// set cookie is not admin
 					$this->user_logged_in();
-					$_SESSION['is_admin'] = False;
+//					$_SESSION['is_admin'] = False;
 				}
 			}
 			else{
