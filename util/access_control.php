@@ -18,9 +18,6 @@ class Access_Control{
 				header("Location: " . SITE_ROOT . "/index.php?login");
 				exit;
 			}
-			else{
-				header("Location: " . SITE_ROOT . "/index.php?user_change_password");
-			}
 		}
 		else{
 			$this->redirect_not_logged_in();
