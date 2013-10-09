@@ -162,13 +162,13 @@ public class JavaCom extends JFrame {
             	}
             	if (btnStartSending.getText() == "Start Sending")
             	{
-            		btnStartSending.setText("Stop Sending");
+            		btnStartSending.setText("Start Sending");
             		startSending();
-            		//alerter("start sending button was clicked");
+            		alerter("start sending button was clicked");
             	}
             	else
             	{
-            		btnStartSending.setText("Start Sending");
+            		btnStartSending.setText("Stop Sending");
             		messagingTimer.cancel();
             	}
             }
@@ -179,7 +179,7 @@ public class JavaCom extends JFrame {
 	
 	private void startSending()
 	{
-		//alerter("startSending started");
+		alerter("startSending started");
 		messagingTimer.scheduleAtFixedRate(new TimerTask() {
 			  @Override
 			  public void run() {
@@ -187,20 +187,20 @@ public class JavaCom extends JFrame {
 				  {
 					  try
 					  {
-						  serverResponseTextArea.append(sendGet() + "\n");
+						  serverResponseTextArea.append(sendGet());
 					  } catch (Exception e) 
 					  {
 							// TODO Auto-generated catch block
-						  serverResponseTextArea.append(e.getMessage() + "\n");
+						  serverResponseTextArea.append(e.getMessage());
 					  }
 				  } else {
 					  try
 					  {
-						  serverResponseTextArea.append(sendPost() + "\n");
+						  serverResponseTextArea.append(sendPost());
 					  } catch (Exception e) 
 					  {
 							// TODO Auto-generated catch block
-						  serverResponseTextArea.append(e.getMessage() + "\n");
+						  serverResponseTextArea.append(e.getMessage());
 					  }
 				  }
 			  }
@@ -229,7 +229,7 @@ public class JavaCom extends JFrame {
 		String inputLine;
 		StringBuffer response = new StringBuffer();
 		response.append("\nSending 'GET' request to URL : " + url);
-		response.append("\nResponse Code : " + responseCode + "\n");
+		response.append("\nResponse Code : " + responseCode);
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
@@ -269,7 +269,7 @@ public class JavaCom extends JFrame {
 		
 		response.append("\nSending 'POST' request to URL : " + url);
 		response.append("\nPost parameters : " + urlParameters);
-		response.append("\nResponse Code : " + responseCode + "\n");
+		response.append("\nResponse Code : " + responseCode);
  
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);

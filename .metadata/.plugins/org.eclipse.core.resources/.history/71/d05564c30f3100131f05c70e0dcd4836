@@ -164,7 +164,7 @@ public class JavaCom extends JFrame {
             	{
             		btnStartSending.setText("Stop Sending");
             		startSending();
-            		//alerter("start sending button was clicked");
+            		alerter("start sending button was clicked");
             	}
             	else
             	{
@@ -179,7 +179,7 @@ public class JavaCom extends JFrame {
 	
 	private void startSending()
 	{
-		//alerter("startSending started");
+		alerter("startSending started");
 		messagingTimer.scheduleAtFixedRate(new TimerTask() {
 			  @Override
 			  public void run() {
@@ -187,20 +187,20 @@ public class JavaCom extends JFrame {
 				  {
 					  try
 					  {
-						  serverResponseTextArea.append(sendGet() + "\n");
+						  serverResponseTextArea.append(sendGet());
 					  } catch (Exception e) 
 					  {
 							// TODO Auto-generated catch block
-						  serverResponseTextArea.append(e.getMessage() + "\n");
+						  serverResponseTextArea.append(e.getMessage());
 					  }
 				  } else {
 					  try
 					  {
-						  serverResponseTextArea.append(sendPost() + "\n");
+						  serverResponseTextArea.append(sendPost());
 					  } catch (Exception e) 
 					  {
 							// TODO Auto-generated catch block
-						  serverResponseTextArea.append(e.getMessage() + "\n");
+						  serverResponseTextArea.append(e.getMessage());
 					  }
 				  }
 			  }
