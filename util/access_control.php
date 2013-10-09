@@ -7,7 +7,9 @@ class Access_Control{
 
 	public function redirect_not_admin(){
 
-		if(!isset($_COOKIE['username'])){
+	include_once(SERVER_ROOT . '/model/database_model.php');	
+
+		if(isset($_COOKIE['username'])){
 
 			$database = new Database_Model;		
 	
@@ -16,6 +18,12 @@ class Access_Control{
 				header("Location: " . SITE_ROOT . "/index.php?login");
 				exit;
 			}
+			else{
+				header("Location: " . SITE_ROOT . "/index.php?user_change_password");
+			}
+		}
+		else{
+			$this->redirect_not_logged_in();
 		}
 	}
 
