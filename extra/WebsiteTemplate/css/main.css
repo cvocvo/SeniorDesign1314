@@ -1,0 +1,123 @@
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+html,body
+{
+  height: 100%;
+}
+
+.padT5 { padding-top:5px; }	/*pad top 5px;*/
+.padT10 { padding-top:10px; }	/*pad top 10px;*/
+.padT20 { padding-top:20px; }	/*pad top 20px;*/
+.padL10 { padding-left:10px; }	/*pad left 10px;*/
+.padR10 { padding-right:10px; } /*pad right 10px*/
+.padA5 { padding:5px; }			/*padding to all sides 5px*/
+.padB20 {padding-bottom: 20px;}
+.smallFont {	font-size:10px; line-height:12px;} /*font size 10px */
+.font48 { font-size:48px; }
+.minH50{ min-height: 50px; } /*min height 50px;*/
+.maxH345 { max-height: 345px; } /*max height 345px*/
+.maxW150{ max-width: 150px; } /*max width 150px*/
+.maxW500{ max-width:500px; } /*max width 500px*/
+.maxW640 { max-width:640px; } /*max width 640px*/
+.nowrap { white-space: nowrap; }
+.margT10 { margin-top:10px; }
+.clearMargin{margin:0px !important;}
+.clearPadding{padding:0px !important;}
+
+.palette-green { color:#47a447; }
+.palette-green:hover { color:#398439; }
+.palette-white { color:#FFF; }
+.palette-darkgray { color:#282828; }
+.palette-BC-green { background-color:#47a447; }
+.palette-BC-medgray { background-color:#aaa; }
+.palette-BC-red	{ background-color:#d2322d; }
+.palette-BC-blue { background-color:#3276b1; }
+
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+} 
+
+.jumbotron {
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 14px;
+}
+.lessPad {
+  padding:20px !important;
+}
+
+.statusPill {
+	height: 100px;
+	min-height: 100%;
+	border-radius: 4px;
+}
+
+.statusPillIcon {
+	font-size:48px;
+	padding-left:6px;
+	padding-top:24px;
+}
+
+#classManagerList > li {
+	padding-top:20px;
+	padding-bottom:10px;
+	border-bottom:solid 1px #282828;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+/* Bootstrap overrides */
