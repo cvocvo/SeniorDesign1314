@@ -19,9 +19,29 @@ class Database_Model{
 		),
 		'matt' => array(
 			'password' => 'lul',
-			'is_admin' => False
+			'is_admin' => False,
+			'class'    => 'cpre530A'
 		)
 	);
+
+	private $classes = array(
+		'cpre530A',
+		'cpre530B'
+	);
+
+	public function list_classes(){
+		return $this->classes;
+	}
+
+	public function list_students_in_class($class){
+		$ret = array();
+
+		foreach($this->users as $user){
+			if($user->class == $class){
+				array_push($ret, $user);
+			}
+		}
+	}
 
 
 

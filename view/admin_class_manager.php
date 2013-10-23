@@ -33,8 +33,11 @@
 			<h2>Class Manager</h2>
 			<p>Current Classes:</p>
 			<ul id="classManagerList" class="list-unstyled">
-				<li><a href="#">CPRE 530 Section 1</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>
-				<li><a href="#">CPRE 530 Section 2</a>&emsp; <a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>
+				<?php
+				foreach ($data['classes'] as $class){
+					<li><a href="#">$class</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>
+				}
+				?>
 			</ul>
 			<p><strong>Note:</strong> By clicking 'Remove Class' you will remove the class, all of the students user accounts, and all associated virtual machines.</p>
 		</div>

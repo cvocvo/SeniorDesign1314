@@ -20,11 +20,15 @@ class Admin_class_manager_Controller
 		$access->redirect_not_admin();
 
 		//determine which model is needed
+		$dbModel = new Database_Model;
+		$hvModel = new Hypervisor_Model;
 
 
 		$view = new View_Model($this->template);
 
 		//determine which dynamic variables are needed
+
+		$view->assign('classes', dbModel->list_classes());
 		
 	}
 

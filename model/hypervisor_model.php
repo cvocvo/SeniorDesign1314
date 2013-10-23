@@ -24,17 +24,27 @@ class Hypervisor_Model{
 		)
 	);
 
+	private $images = array(
+		'base_attack',
+		'base_client',
+		'base_usrp'
+	);
+
 	public function get_machines_for_user($user){
 		
 		$ret = array();
 
-		foreach($machine in $this->machines){
+		foreach($this->machines as $machine){
 			if(machine['owner'] == $user){
-				array_push($ret, machine);
+				array_push($ret, $machine);
 			}
 		}
 
 		return $ret;
+	}
+
+	public function get_base_images(){
+		return $this->images;
 	}
 
 
