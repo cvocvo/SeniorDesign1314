@@ -5,10 +5,10 @@
 * receives page arguments and interacts with the model
 * to render the page
 */
-class Admin_class_manager_Controller
-{
+class Admin_class_manager_Controller{
 
-	
+	require_once(SERVER_ROOT . '/model/database_model.php');
+	require_once(SERVER_ROOT . '/model/hypervisor_model.php');
 
 	public $template = 'admin_class_manager';
 
@@ -30,7 +30,6 @@ class Admin_class_manager_Controller
 		$view->assign('classes', $dbModel->list_classes());
 		
 	}
-
 }
 
 ?>

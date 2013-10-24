@@ -3,17 +3,19 @@
 class Login_Controller
 {	
 
-        public $template = 'login';
+	require_once(SERVER_ROOT . '/model/database_model.php');
 
-        public function main(array $getVars){
+	public $template = 'login';
 
-                //determine which model is needed
+	public function main(array $getVars){
 
-                $view = new View_Model($this->template);
+			//determine which model is needed
 
-                //determine which dynamic variables are needed
+			$view = new View_Model($this->template);
 
-        }
+			//determine which dynamic variables are needed
+
+	}
 
 	public function do_post(){
 
