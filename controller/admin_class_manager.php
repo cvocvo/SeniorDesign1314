@@ -1,5 +1,11 @@
 <?php
 
+include_once(SERVER_ROOT . '/util/access_control.php');
+include_once(SERVER_ROOT . '/model/database_model.php');
+include_once(SERVER_ROOT . '/model/hypervisor_model.php');
+include_once(SERVER_ROOT . '/model/view.php');
+
+
 /**
 * controller class for the admin class manager page
 * receives page arguments and interacts with the model
@@ -10,8 +16,6 @@ class Admin_class_manager_Controller{
 	public $template = 'admin_class_manager';
 
 	public function main(array $getVars){
-
-		include_once(SERVER_ROOT . '/util/access_control.php');
 
 		$access = new Access_Control;
 		$access->redirect_not_admin();

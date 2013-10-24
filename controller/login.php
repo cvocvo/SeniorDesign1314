@@ -1,5 +1,8 @@
 <?php
 
+include_once(SERVER_ROOT . '/model/database_model.php');
+include_once(SERVER_ROOT . '/model/view.php');
+
 class Login_Controller{	
 
 	public $template = 'login';

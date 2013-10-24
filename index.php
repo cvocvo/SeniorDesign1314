@@ -21,8 +21,4 @@ set_include_path('/var/www/wseclab');
 require_once(SERVER_ROOT . '/controller/router.php');
 require_once(SERVER_ROOT . '/util/access_control.php');
 
-require_once(SERVER_ROOT . '/model/database_model.php');
-require_once(SERVER_ROOT . '/model/hypervisor_model.php');
-require_once(SERVER_ROOT . '/model/view.php');
-
 ?>
