@@ -53,7 +53,7 @@
 	  <div class="jumbotron row padT20">
 		<div class="col-md-12">
 			<h2>Add Class</h2>
-			<p>Import a comma-delimited class file. <strong>Note:</strong> This will automatically create users for this class.</p>
+			<p>Optionally import a comma-delimited class file. <strong>Note:</strong> This will automatically create users for this class.</p>
 			<form action="index.php" method="post" role="form">
 				<input type="hidden" name="page" value="admin_class_manager" />
 				<input type="hidden" name="form_id" value="create_class" />
@@ -65,7 +65,7 @@
 				<p>Select Virtual Machines to grant class access to:</p>
 				<?php
 				foreach($data['base_images'] as $image){
-					echo '<div class="checkbox"><label><input type="checkbox" value="' .  $image . '">[' . $image . ']</label></div>\n';
+					echo '<div class="checkbox"><label><input type="checkbox" value="' .  $image . '">[' . $image . ']</label></div>';
 				}
 				?>
 				<button type="submit" class="btn btn-success">Create Class</button>
