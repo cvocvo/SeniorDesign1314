@@ -25,8 +25,10 @@ class Database_Model{
 	);
 
 	private $classes = array(
-		'cpre530A',
-		'cpre530B'
+		'CprE530A',
+		'CprE530B',
+		'EE201A',
+		'EE201B'
 	);
 
 	public function list_classes(){

@@ -39,7 +39,7 @@
 				</div>
 				<div class="checkbox">
 				<label>
-				  <input type="checkbox" name="agree">I agree to the <a href="#" target="_blank">Terms and Conditions</a> </input>
+				  <input type="checkbox" name="agree">I agree to the <a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Terms and Conditions</a> </input>
 				</label>
 				</div>
 				<button type="submit" class="btn btn-success">Login</button>
