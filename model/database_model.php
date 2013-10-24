@@ -34,7 +34,7 @@ class Database_Model{
 	public function list_classes(){
 		return $this->classes;
 	}
-
+	
 	public function list_students_in_class($class){
 		$ret = array();
 

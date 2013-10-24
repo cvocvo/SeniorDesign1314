@@ -1,5 +1,7 @@
 <?php
 
+include_once(SERVER_ROOT . '/util/access_control.php');
+include_once(SERVER_ROOT . '/model/view.php');
 
 /**
 * controller class for the admin class view page
@@ -12,14 +14,12 @@ class Admin_class_view_Controller{
 
         public function main(array $getVars){
 
-		include_once(SERVER_ROOT . '/util/access_control.php');
-
 		$access = new Access_Control;
 		$access->redirect_not_admin();
-                //determine which model is needed
+		//determine which model is needed
 
-                $view = new View_Model($this->template);
-                
+		$view = new View_Model($this->template);
+				
 		//determine which dynamic variables are needed
 
         }

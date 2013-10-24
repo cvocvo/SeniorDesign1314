@@ -5,7 +5,6 @@ include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
 
-
 /**
 * controller class for the admin class manager page
 * receives page arguments and interacts with the model
@@ -29,6 +28,7 @@ class Admin_class_manager_Controller{
 		//determine which dynamic variables are needed
 
 		$view->assign('classes', $dbModel->list_classes());
+		$view->assign('base_images', $hvModel->get_base_images());
 		
 	}
 }

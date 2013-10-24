@@ -54,34 +54,24 @@
 		<div class="col-md-12">
 			<h2>Add Class</h2>
 			<p>Import a comma-delimited class file. <strong>Note:</strong> This will automatically create users for this class.</p>
-			<form role="form">
+			<form action="index.php" method="post" role="form">
+				<input type="hidden" name="page" value="admin_class_manager" />
+				<input type="hidden" name="form_id" value="create_class" />
 				<div class="form-group">
 					<label for="classListFile">File input</label>
 					<input type="file" id="classListFile">
 					<p class="help-block">File format should be: lorem, ipsum, bacon</p>
 				</div>
 				<p>Select Virtual Machines to grant class access to:</p>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
+				<?php
+				foreach($data['base_images'] as $image){
+					echo '<div class="checkbox"><label><input type="checkbox" value="' .  $image . '">' . [$image] . '</label></div>\n'
+				}
+				?>
 				<button type="submit" class="btn btn-success">Create Class</button>
 			</form>
 			
+			<!--
 			<h4 class="padT20">OR, just add a class for now:</h4>
 			<form role="form">
 				<div class="form-group">
@@ -109,6 +99,8 @@
 				</div>
 				<button type="submit" class="btn btn-success">Create Class</button>
 			</form>
+			-->
+			
 		</div>
       </div>
 	  
@@ -116,7 +108,9 @@
 		<div class="col-md-12">
 			<h2>Add Students</h2>
 			<h4>Add a new student to an existing class:</h4>
-			<form role="form">
+			<form action="index.php" method="post" role="form">
+				<input type="hidden" name="page" value="admin_class_manager" />
+				<input type="hidden" name="form_id" value="add_student_to_class" />
 			    <div class="form-group">
 				    <p>Student Name:</p>
 					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
@@ -135,8 +129,11 @@
 				<p>Add to class:</p>
 				<div class="form-group">
 					<select class="form-control">
-					  <option>CPRE 530 Section 1</option>
-					  <option>CPRE 530 Section 2</option>
+					<?php
+					foreach($data['classes'] as $class){
+					  echo '<option>' . $class . '</option>\n'
+					}
+					?>
 					</select>
 				</div>
 				<button type="submit" class="btn btn-success">Create New Student</button>
