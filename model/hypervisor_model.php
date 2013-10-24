@@ -35,7 +35,7 @@ class Hypervisor_Model{
 		$ret = array();
 
 		foreach($this->machines as $machine){
-			if(machine['owner'] == $user){
+			if($machine['owner'] == $user){
 				array_push($ret, $machine);
 			}
 		}
