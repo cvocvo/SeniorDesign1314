@@ -17,7 +17,7 @@ class Login_Controller
 
 	public function do_post(){
 
-		include_once(SERVER_ROOT . '/model/database_model.php');
+//		include_once(SERVER_ROOT . '/model/database_model.php');
 
 //		session_start();
 		//only login if they agree not to break ALL the laws
