@@ -64,7 +64,7 @@ class Login_Controller{
 	}
 
 	private function admin_logged_in(){
-		header("Location: " . SITE_ROOT . "/index.php?admin_tools");
+		header("Location: " . SITE_ROOT . "/index.php?admin_class_manager");
 	}
 
 	private function user_logged_in(){
