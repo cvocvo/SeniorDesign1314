@@ -33,11 +33,16 @@
 			<h2>Class Manager</h2>
 			<p>Current Classes:</p>
 			<ul id="classManagerList" class="list-unstyled">
-				<?php
-				foreach ($data['classes'] as $class){
-					echo '<li><a href="/index.php?admin_view_class&class=' . $class . '">' . $class . '</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>';
-				}
-				?>
+				<form action="index.php" method="post">
+					<input type="hidden" name="page" value="admin_class_manager" />
+					<input type="hidden" name="form_id" value="delete_class" />
+					<?php
+					foreach ($data['classes'] as $class){
+						echo '<li><a href="'. SITE_ROOT . '/index.php?admin_view_class&class=' . $class . '">' . $class .
+							'</a><input type="submit" value="' . $class . '" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</input></li>';
+					}
+					?>
+				</form>
 			</ul>
 			<p><strong>Note:</strong> By clicking 'Remove Class' you will remove the class, all of the students user accounts, and all associated virtual machines.</p>
 		</div>
