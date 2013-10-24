@@ -46,6 +46,10 @@ else{
 
 	//page is the first arg, remove it from the array and store it
 	$page = array_shift($parsed);
+	
+	if($page == ""){
+		$page = 'login';
+	}
 
 	//rest of the array is key val pairs of GET args
 	$getVars = array();
@@ -70,7 +74,8 @@ else{
 	}
 
 	else{
-		die('page does not exist');
+		//die('page does not exist');
+		header("Location: " . SITE_ROOT . "/404.php");
 	}
 
 	$controller->main($getVars);
