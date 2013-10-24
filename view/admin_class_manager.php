@@ -38,8 +38,10 @@
 					<input type="hidden" name="form_id" value="delete_class" />
 					<?php
 					foreach ($data['classes'] as $class){
-						echo '<li><a href="'. SITE_ROOT . '/index.php?admin_class_view&class=' . $class . '">' . $class .
-							'</a><button type="submit" value="' . $class . '" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</button</li>';
+						echo '<li><a href="'. SITE_ROOT . '/index.php?admin_class_view&class=' . $class . '">' . $class . '</a>
+							<button type="submit" value="' . $class . '" class="btn btn-danger pull-right">
+								<span class="glyphicon glyphicon-remove"></span> Remove Class</button>
+							</li>';
 					}
 					?>
 				</form>
