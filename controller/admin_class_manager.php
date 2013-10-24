@@ -27,7 +27,7 @@ class Admin_class_manager_Controller
 
 		//determine which dynamic variables are needed
 
-		$view->assign('classes', dbModel->list_classes());
+		$view->assign('classes', $dbModel->list_classes());
 		
 	}
 
