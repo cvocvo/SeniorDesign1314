@@ -7,9 +7,6 @@
 */
 class Admin_class_manager_Controller{
 
-	require_once(SERVER_ROOT . '/model/database_model.php');
-	require_once(SERVER_ROOT . '/model/hypervisor_model.php');
-
 	public $template = 'admin_class_manager';
 
 	public function main(array $getVars){

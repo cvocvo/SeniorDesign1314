@@ -1,7 +1,7 @@
 <?php
 
 //Automatically includes files containing classes that are called
-function __autoload($className)
+/*function __autoload($className)
 {
     //parse out filename where class should be located
     list($filename , $suffix) = split('_' , $className);
@@ -20,7 +20,7 @@ function __autoload($className)
         //file does not exist!
         die("File '$filename' containing class '$className' not found.");    
     }
-}
+}*/
 
 //determine if was get or post
 //all forms have a hidden field containing their page source

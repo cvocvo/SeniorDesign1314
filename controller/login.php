@@ -1,9 +1,6 @@
 <?php
 
-class Login_Controller
-{	
-
-	require_once(SERVER_ROOT . '/model/database_model.php');
+class Login_Controller{	
 
 	public $template = 'login';
 
