@@ -23,7 +23,6 @@ class Admin_class_manager_Controller
 		$dbModel = new Database_Model;
 		$hvModel = new Hypervisor_Model;
 
-
 		$view = new View_Model($this->template);
 
 		//determine which dynamic variables are needed

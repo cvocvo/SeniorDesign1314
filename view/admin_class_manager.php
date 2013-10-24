@@ -35,7 +35,7 @@
 			<ul id="classManagerList" class="list-unstyled">
 				<?php
 				foreach ($data['classes'] as $class){
-					<li><a href="#">$class</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>
+					echo '<li><a href="/index.php?admin_view_class&class=' . $class . '">' . $class . '</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove Class</a></li>'
 				}
 				?>
 			</ul>
