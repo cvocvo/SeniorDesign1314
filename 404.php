@@ -21,6 +21,6 @@
 	
 	<h1>404: Not Found</h1>
 	
-	<button class="btn btn-danger pull-right" onclick="history.go(-1);">Back</button>
+	<button class="btn btn-danger" onclick="history.go(-1);">Back</button>
 	
   </body>
