@@ -1,5 +1,7 @@
 <?php
 
+include_once(SERVER_ROOT . '/util/logger.php');
+
 //Automatically includes files containing classes that are called
 /*function __autoload($className)
 {
@@ -26,6 +28,9 @@
 //all forms have a hidden field containing their page source
 //check if it is set, if not, it is a get
 if(isset($_POST['page'])){
+
+	Logger::log("router", "POST to " . $_POST['page']);
+
 	//pass control over to the specific page's controller
 	$target = SERVER_ROOT . '/controller/' . $_POST['page'] . '.php';
 	
@@ -50,6 +55,8 @@ else{
 	if($page == ""){
 		$page = 'login';
 	}
+	
+	$Logger::log("router", "GET to " . $page);
 
 	//rest of the array is key val pairs of GET args
 	$getVars = array();

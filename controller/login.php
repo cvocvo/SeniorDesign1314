@@ -2,6 +2,7 @@
 
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
+include_once(SERVER_ROOT . '/util/Access_Control');
 
 class Login_Controller{	
 
@@ -19,42 +20,12 @@ class Login_Controller{
 
 	public function do_post(){
 
-//		include_once(SERVER_ROOT . '/model/database_model.php');
-
-//		session_start();
 		//only login if they agree not to break ALL the laws
 		if(isset($_POST['agree'])){
-			
-			$user = $_POST['username'];			
-			$number_of_days = 365;
-			$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days;
-			setcookie("username", $_POST['username'], $date_of_expiry, "/");
-			$pass = $_POST['password'];
-
-			$database = new Database_Model;
-
-			if($database->authenticate($user, $pass)){
-
-//				$_SESSION['user'] = $user;
+			Access_Control::authenticate($_POST['username'], $_POST['password']);
+		}
 		
-				if($database->is_admin($user)){
-					// set cookie is admin
-					$this->admin_logged_in();
-//					$_SESSION['is_admin'] = True;
-				}
-				else{
-					// set cookie is not admin
-					$this->user_logged_in();
-//					$_SESSION['is_admin'] = False;
-				}
-			}
-			else{
-				$this->loopback();
-			}
-		}
-		else{
-			$this->loopback();
-		}
+		Access_Control::redirect_to_landing();
 
 	}
 
