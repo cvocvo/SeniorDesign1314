@@ -56,7 +56,7 @@ else{
 		$page = 'login';
 	}
 	
-	$Logger::log("router", "GET to " . $page);
+	Logger::log("router", "GET to " . $page);
 
 	//rest of the array is key val pairs of GET args
 	$getVars = array();
