@@ -23,7 +23,7 @@ class Access_Control{
 	
 		$database = new Database_Model;
 		
-		if($database->authenticate($user, $pass){
+		if($database->authenticate($user, $pass)){
 			$number_of_days = 365;
 			$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days;
 			setcookie("username", $user, $date_of_expiry, "/");

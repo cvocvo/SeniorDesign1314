@@ -2,7 +2,7 @@
 
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
-include_once(SERVER_ROOT . '/util/Access_Control');
+include_once(SERVER_ROOT . '/util/access_control');
 
 class Login_Controller{	
 
