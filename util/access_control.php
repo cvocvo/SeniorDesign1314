@@ -37,7 +37,7 @@ class Access_Control{
 	}
 	
 	private static function make_token($user){
-		return hash("sha256", $user . $this_->secret);
+		return hash("sha256", $user . $this->secret);
 	}
 	
 	private static function check_token($user, $token){
