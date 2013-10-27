@@ -15,7 +15,7 @@ class Access_Control{
 	move all authentication and cookie stuff to access control
 	*/
 	
-	private $secret = "fu3gBuY3kcaWN6jnHkepYytAWKRBuMCe";
+	private static $secret = "fu3gBuY3kcaWN6jnHkepYytAWKRBuMCe";
 	
 	public function __construct(){}
 	
@@ -37,11 +37,11 @@ class Access_Control{
 	}
 	
 	private static function make_token($user){
-		return hash("sha256", $user . $this->secret);
+		return hash("sha256", $user . self::$secret);
 	}
 	
 	private static function check_token($user, $token){
-		return hash("sha256", $user . $this->secret) == $token;
+		return hash("sha256", $user . self::$secret) == $token;
 	}
 	
 	public static function is_logged_in(){
