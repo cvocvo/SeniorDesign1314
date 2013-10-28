@@ -72,8 +72,7 @@ class Access_Control{
 	public static function gate_admin_page(){
 		
 		if(!self::is_admin()){
-			http_response_code(403);
-			header("Location: " . SITE_ROOT . "/403.php");
+			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}
 	}
@@ -81,8 +80,7 @@ class Access_Control{
 	public static function gate_restricted_page(){
 	
 		if(!self::is_logged_in()){
-			http_response_code(403);
-			header("Location: " . SITE_ROOT . "/403.php");
+			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}
 	
