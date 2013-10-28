@@ -82,6 +82,7 @@ else{
 
 	else{
 		//die('page does not exist');
+		http_response_code(404);
 		header("Location: " . SITE_ROOT . "/404.php");
 	}
 

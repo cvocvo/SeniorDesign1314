@@ -16,8 +16,7 @@ class Admin_class_manager_Controller{
 
 	public function main(array $getVars){
 
-		$access = new Access_Control;
-		$access->redirect_not_admin();
+		Access_Control::gate_admin_page();
 
 		//determine which model is needed
 		$dbModel = new Database_Model;

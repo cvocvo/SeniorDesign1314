@@ -72,9 +72,23 @@ class Access_Control{
 	public static function gate_admin_page(){
 		
 		if(!self::is_admin){
-			header("Location: " . SITE_ROOT . "/index.php?login");
+			http_response_code(403);
+			header("Location: " . SITE_ROOT . "/403.php");
+			exit();
 		}
 	}
+	
+	public static function gate_restricted_page(){
+	
+		if(!self::is_logged_in()){
+			http_response_code(403);
+			header("Location: " . SITE_ROOT . "/403.php");
+			exit();
+		}
+	
+	}
+	
+	public static 
 
 	public function redirect_not_admin(){
 
