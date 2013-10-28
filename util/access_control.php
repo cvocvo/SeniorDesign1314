@@ -87,8 +87,6 @@ class Access_Control{
 		}
 	
 	}
-	
-	public static 
 
 	public function redirect_not_admin(){
 
