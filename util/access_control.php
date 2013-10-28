@@ -71,7 +71,7 @@ class Access_Control{
 	
 	public static function gate_admin_page(){
 		
-		if(!self::is_admin){
+		if(!self::is_admin()){
 			http_response_code(403);
 			header("Location: " . SITE_ROOT . "/403.php");
 			exit();
