@@ -1,6 +1,7 @@
 <?php
 
-include_once(SERVER_ROOT . '/model/database_model.php');	
+include_once(SERVER_ROOT . '/model/database_model.php');
+include_once(SERVER_ROOT . '/util/logger.php');	
 
 class Access_Control{
 
@@ -29,6 +30,8 @@ class Access_Control{
 			setcookie("username", $user, $date_of_expiry, "/");
 			
 			setcookie("token", self::make_token($user), $date_of_expiry, "/");
+			
+			Logger::log("access control", $user . " Authenticated, cookies set");
 		}
 	}
 	
@@ -58,13 +61,16 @@ class Access_Control{
 		
 		if(self::is_logged_in()){
 			if(self::is_admin()){
+				Logger::log("access control", "Admin " . $user . " landed");
 				header("Location: " . SITE_ROOT . "/index.php?admin_class_manager");
 			}
 			else{
+				Logger::log("access control", "User " . $user . " landed");
 				header("Location: " . SITE_ROOT . "/index.php?user_index");
 			}
 		}
 		else{
+			Logger::log("access control", "Invalid login with " . $user . " landed");
 			header("Location: " . SITE_ROOT . "/index.php?login");
 		}
 	}
@@ -72,6 +78,7 @@ class Access_Control{
 	public static function gate_admin_page(){
 		
 		if(!self::is_admin()){
+			Logger::log("access control", "Nonadmin " . $user . " gated");
 			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}
@@ -80,6 +87,7 @@ class Access_Control{
 	public static function gate_restricted_page(){
 	
 		if(!self::is_logged_in()){
+			Logger::log("access control", "Unregistered " . $user . " gated");
 			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}

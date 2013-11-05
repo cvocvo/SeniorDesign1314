@@ -83,6 +83,7 @@ else{
 	else{
 		//die('page does not exist');
 		header("Location: " . SITE_ROOT . "/404.php", true, 404);
+		exit();
 	}
 
 	$controller->main($getVars);
