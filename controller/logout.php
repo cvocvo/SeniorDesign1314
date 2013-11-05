@@ -1,25 +1,20 @@
 <?php
 
+include_once(SERVER_ROOT . '/util/access_control.php');
+
 class Logout_Controller{
 
-
 	public function main(){
+	
+		Access_Control::logout();
+	
+		Access_Control::redirect_to_landing();
 
 //		session_destroy();
 		
-			$number_of_days = 365;
-			$date_of_expiry = time() -2592000 * $number_of_days;
-			setcookie("username", $_COOKIE['username'], $date_of_expiry, "/");
-		$this->redirect();	
+		
 
 
 	}
-
-	private function redirect(){
-                header("Location: " . SITE_ROOT . "/index.php?login");
-                exit;
-        }
-
-	
 
 }

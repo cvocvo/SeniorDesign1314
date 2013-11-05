@@ -37,6 +37,11 @@ class Access_Control{
 	
 	public function logout(){
 	
+		$number_of_days = 365;
+		$date_of_expiry = time() -2592000 * $number_of_days;
+		setcookie("username", $_COOKIE['username'], $date_of_expiry, "/");
+		
+		setcookie("token", $_COOKIE['token'], $date_of_expiry, "/");
 	}
 	
 	private static function make_token($user){
@@ -59,6 +64,8 @@ class Access_Control{
 	
 	public static function redirect_to_landing(){
 		
+		$user = $_COOKIE['username'];
+		
 		if(self::is_logged_in()){
 			if(self::is_admin()){
 				Logger::log("access control", "Admin " . $user . " landed");
@@ -76,6 +83,8 @@ class Access_Control{
 	}
 	
 	public static function gate_admin_page(){
+	
+		$user = $_COOKIE['username'];
 		
 		if(!self::is_admin()){
 			Logger::log("access control", "Nonadmin " . $user . " gated");
@@ -85,6 +94,8 @@ class Access_Control{
 	}
 	
 	public static function gate_restricted_page(){
+	
+		$user = $_COOKIE['username'];
 	
 		if(!self::is_logged_in()){
 			Logger::log("access control", "Unregistered " . $user . " gated");
