@@ -82,7 +82,7 @@ else{
 
 	else{
 		//die('page does not exist');
-		header("Location: " . SITE_ROOT . "/404.php", true, 404);
+		header("Location: " . SITE_ROOT . "/404.php");
 		exit();
 	}
 

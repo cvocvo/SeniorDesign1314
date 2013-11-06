@@ -24,3 +24,7 @@
 	<button class="btn btn-danger" onclick="history.go(-1);">Back</button>
 	
   </body>
+
+  <?php
+    header("HTTP/1.0 404 Not Found");
+  ?>

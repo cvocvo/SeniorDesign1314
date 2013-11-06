@@ -94,7 +94,7 @@ class Access_Control{
 			
 			Logger::log("access control", "Nonadmin gated");
 
-			header("Location: " . SITE_ROOT . "/403.php", true, 403);
+			header("Location: " . SITE_ROOT . "/403.php");
 			exit();
 		}
 	}
@@ -106,7 +106,7 @@ class Access_Control{
 
 			Logger::log("access control", "Unregistered gated");
 			
-			header("Location: " . SITE_ROOT . "/403.php", true, 403);
+			header("Location: " . SITE_ROOT . "/403.php");
 			exit();
 		}
 	
