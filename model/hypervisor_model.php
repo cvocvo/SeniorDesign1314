@@ -9,7 +9,7 @@ class Hypervisor_Model{
 			'name' => 'matt_attack',
 			'status' => 'on',
 			'time_remaining' => '16:16:16',
-			'ip_address' => '1.2.3.4',
+			'address' => '1.2.3.4',
 			'owner' => 'matt'
 		),
 		array(

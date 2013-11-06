@@ -55,6 +55,10 @@ class Database_Model{
 		return $this->users;
 	}
 
+	public function is_user($user){
+		return in_array($user, $this->users);
+	}
+
 
 
 }

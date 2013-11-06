@@ -23,8 +23,6 @@ class Admin_class_view_Controller{
 		$dbModel = new Database_Model;
 		$hvModel = new Hypervisor_Model;
 
-		Logger::log("admin_class_view", "class is " . $getVars['class']);
-
 		if(isset($getVars['class']) && $dbModel->is_class($getVars['class'])){
 
 			$view = new View_Model($this->template);
