@@ -32,9 +32,9 @@
 		<div class="col-md-12">
 			<ol class="breadcrumb">
 			  <li><a href="#">Class Manager</a></li>
-			  <li class="active">CPRE 530 Section 2</li>
+			  <li class="active"><?=$data['class'];?></li>
 			</ol>
-			<h4>Currently Viewing: CPRE 530 Section 2</h4>
+			<h4>Currently Viewing: <?=$data['class'];?></h4>
 		</div>
 	  </div>
 	  
@@ -43,38 +43,30 @@
 			<h2>Class Management Toolbox</h2>
 			<p>All of these actions should be taken with extreme care as they will affect all students in the class.</p>
 			<h4 class="padT20">Change Class Attributes:</h4>
-			<form role="form">
+			<form action="index.php" method="post" role="form">
+				<input type="hidden" name="page" value="admin_class_view" />
+				<input type="hidden" name="class" value="<?=$data['class'];?>" />
 				<div class="form-group">
 					<p>Class Name:</p>
-					<input type="password" class="form-control" name="classname" placeholder="Enter your class name">
+					<input type="text" class="form-control" name="classname" placeholder="Enter your class name">
 				</div>
 				<p>Select Virtual Machines to grant class access to:</p>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
-				<div class="checkbox">
-				  <label>
-					<input type="checkbox" value="">
-					[Virtual Machine Name Goes Here]
-				  </label>
-				</div>
-				<button type="submit" class="btn btn-success">Change Class Name</button>
-			</form>
+				<?php
+				foreach ($data['images'] as $image){
+					echo '<div class="checkbox"><label>
+					<input type="checkbox" value="' . $image . '">
+					[' . $image . ']</label>
+					</div>';
+				}
+				?>
+				<button type="submit" value="save" class="btn btn-success">Change Class Name</button>	
 			<br>
-			<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew Time Remaining for All VM's</a>
+			<button type="submit" value="renew" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew Time Remaining for All VM's</button>
 			<br><br>
-			<a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down All VM's</a>
+			<button type="submit" value="power_down_vms" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down All VM's</button>
 			<br><br>
-			<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete All VM's</a>
+			<button type="submit" value="delete_vms" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete All VM's</button>
+			</form>
 		</div>
       </div>
 
@@ -83,12 +75,14 @@
 			<h2>Students</h2>
 			<p>Looking to change a username/name/password/reset a VM for a student? Click the student's name below:</p>
 			<ul class="list-unstyled">
-				<li><a href="#">Khan, Tahsin</a></li>
-				<li><a href="#">Mallet, Matt</a></li>
-				<li><a href="#">Niu, Frank</a></li>
-				<li><a href="#">Tran, Dustin</a></li>
-				<li><a href="#">Van Oort, Chris</a></li>
-				<li><a href="#">Wang, Yuqi</a></li>
+			<?php
+			foreach ($data['students'] as $student_name => $student_info){
+				echo '<li>
+					<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $student_name . '">' . $student_name . '</a>
+				</li>
+				';
+			}
+			?>
 			</ul>
 		</div>
       </div>

@@ -20,7 +20,12 @@ class Database_Model{
 		'matt' => array(
 			'password' => 'lul',
 			'is_admin' => False,
-			'class'    => 'cpre530A'
+			'class'    => 'CprE530A'
+		),
+		'tahsin' => array(
+			'password' => 'labview',
+			'is_admin' => False,
+			'class' => 'CprE530B'
 		)
 	);
 
@@ -34,15 +39,20 @@ class Database_Model{
 	public function list_classes(){
 		return $this->classes;
 	}
+
+	public function is_class($class){
+		return in_array($class, $this->classes);	
+	}
 	
 	public function list_students_in_class($class){
-		$ret = array();
+		/*$ret = array();
 
 		foreach($this->users as $user){
 			if($user->class == $class){
 				array_push($ret, $user);
 			}
-		}
+		}*/
+		return $this->users;
 	}
 
 

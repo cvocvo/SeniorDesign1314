@@ -1,7 +1,10 @@
 <?php
 
 include_once(SERVER_ROOT . '/util/access_control.php');
+include_once(SERVER_ROOT . '/model/database_model.php');
+include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
+include_once(SERVER_ROOT . '/util/logger.php');
 
 /**
 * controller class for the admin class view page
@@ -9,22 +12,38 @@ include_once(SERVER_ROOT . '/model/view.php');
 * in order to render the page
 */
 class Admin_class_view_Controller{
-
 		
 
-        public $template = 'admin_class_view';
+    public $template = 'admin_class_view';
 
-        public function main(array $getVars){
+    public function main(array $getVars){
+
+		Access_Control::gate_admin_page();
 		
-			Access_Control::gate_admin_page();
-			
-			//determine which model is needed
+		$dbModel = new Database_Model;
+		$hvModel = new Hypervisor_Model;
+
+		Logger::log("admin_class_view", "class is " . $getVars['class']);
+
+		if(isset($getVars['class']) && $dbModel->is_class($getVars['class'])){
 
 			$view = new View_Model($this->template);
-					
-			//determine which dynamic variables are needed
 
-			}
+			$hvModel->get_base_images();
+			$dbModel->list_students_in_class($class);
+
+			$view->assign('class', $getVars['class']);
+			$view->assign('students', $dbModel->list_students_in_class($getVars['class']));
+			$view->assign('images', $hvModel->get_base_images());
+
+		}
+		else{
+
+			header("Location: " . SITE_ROOT . "/404.php");
+			exit();
+		}
+			
+	}
 
 }
 
