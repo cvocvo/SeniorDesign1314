@@ -33,7 +33,8 @@ class Database_Model{
 		'CprE530A',
 		'CprE530B',
 		'EE201A',
-		'EE201B'
+		'EE201B',
+		'default'
 	);
 
 	public function list_classes(){
@@ -56,7 +57,15 @@ class Database_Model{
 	}
 
 	public function is_user($user){
-		return in_array($user, $this->users);
+		return array_key_exists($user, $this->users);
+	}
+
+	public function get_class_for_user($user){
+		if(array_key_exists($user, $this->users)
+				&& isset($this->users[$user]['class'])){
+			return $this->users[$user]['class'];
+		}
+		return 'default';
 	}
 
 

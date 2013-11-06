@@ -5,6 +5,7 @@ include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/util/logger.php');
+include_once(SERVER_ROOT . '/util/machine_table_builder.php');
 
 class Admin_student_view_Controller
 {
@@ -22,32 +23,28 @@ class Admin_student_view_Controller
 
             if(isset($getVars['student']) && $dbModel->is_user($getVars['student'])){
 
+            	$machine_tables = array();
+            	foreach($hvModel->get_machines_for_user($getVars['student']) as $machine){
+            		$table = Machine_table_builder::build($machine);
+            		if($table != ""){
+            			array_push($machine_tables, $table);
+            		}
+            	}
 
 	            $view = new View_Model($this->template);
 
-	            $view->assign('machines', $hvModel->get_machines_for_user($getVars['student']));
-	            $view->assign('classes', $db->list_classes());
+	            $view->assign('user', $getVars['student']);
+	            $view->assign('class', $dbModel->get_class_for_user($getVars['student']));
+	            $view->assign('classes', $dbModel->list_classes());
+	            $view->assign('machine_tables', $machine_tables);
+	            
+	        }
+	        else{
+	        	header("Location: " . SITE_ROOT . "/404.php");
+				exit();
 	        }
 
-
-
-            //determine which dynamic variables are needed
-
         }
-
-        private $online_template = '
-
-        ';
-
-        private $offline_template = '
-
-        ';
-
-        private $not_deployed_template = '
-
-        ';
-
-        private function build_machine_table
 
 }
 

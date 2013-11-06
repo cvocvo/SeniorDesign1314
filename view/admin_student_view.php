@@ -32,17 +32,19 @@
 		<div class="col-md-12">
 			<ol class="breadcrumb">
 			  <li><a href="#">Class Manager</a></li>
-			  <li><a href="#">CPRE 530 Section 2</a></li>
-			  <li class="active">[INSERT STUDENT NAME]</li>
+			  <li><a href="#"><?=$data['class'];?></a></li>
+			  <li class="active">[<?=$data['user'];?>]</li>
 			</ol>
-			<h4>Currently Viewing Student: [INSERT STUDENT NAME]</h4>
+			<h4>Currently Viewing Student: [<?=$data['user'];?>]</h4>
 		</div>
 	  </div>
 	  
 	  <div class="jumbotron row padT20">
 		<div class="col-md-12">
 			<h2>Edit Student Details</h2>
-			<form>
+			<form action="index.php" method="post">
+				<input type="hidden" name="page" value="admin_student_view"/>
+				<input type="hidden" name="student" value="<?=$data['user'];?>"/>
 				<p>*Only fields with information in them will be changed.</p>
 				<div class="form-group">
 					<p>Student Name:</p>
@@ -62,55 +64,23 @@
 				<p>Change the class this student is in:</p>
 				<div class="form-group">
 					<select class="form-control">
-					  <option>CPRE 530 Section 1</option>
-					  <option>CPRE 530 Section 2</option>
+					<?php
+					foreach($data['classes'] as $class){
+					  echo '<option>' . $class . '</option>';
+					}
+					?>
 					</select>
 				</div>
 				<button type="submit" class="btn btn-success">Save Changes</button>
 			</form>
 		</div>
       </div>
-	  
-      <div class="jumbotron lessPad row">
-		<div class="col-md-1 statusPill palette-BC-green clearPadding">
-			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
-		</div>
-		<div class="col-md-11">
-			<h3 class="clearMargin">[bacon ipsum machine name] &mdash; Status: Online</h3>
-			<p class="padT10"><strong>IP Address:</strong> 129.186.234.191</p>
-			<div class="padT10">
-				<a href="#" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down</a>
-				<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete VM</a>
-			</div>
-		</div>
-      </div>
-	  
-	  <div class="jumbotron lessPad row">
-		<div class="col-md-1 statusPill palette-BC-medgray clearPadding">
-			<span class="glyphicon glyphicon-off palette-darkgray statusPillIcon"></span>
-		</div>
-		<div class="col-md-11">
-			<h3 class="clearMargin">[bacon ipsum machine name] &mdash; Status: Offline</h3>
-			<p class="padT10">This machine is currently offline.</p>
-			<div class="padT10">
-				<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-flash"></span> Power On</a>
-				<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete VM</a>
-			</div>
-		</div>
-      </div>
-	  
-	  <div class="jumbotron lessPad row">
-		<div class="col-md-1 statusPill palette-BC-blue clearPadding">
-			<span class="glyphicon glyphicon-export palette-white statusPillIcon"></span>
-		</div>
-		<div class="col-md-11">
-			<h3 class="clearMargin">[bacon ipsum machine name] &mdash; Status: Not Deployed</h3>
-			<p class="padT10">This virtual machine has not yet been deployed.</p>
-			<div class="padT10">
-				<a href="#" class="btn btn-success"><span class="glyphicon glyphicon-export"></span> Deploy Virtual Machine</a>
-			</div>
-		</div>
-      </div>
+
+      <?php
+      foreach($data['machine_tables'] as $table){
+      	echo $table;
+      }
+      ?>
 	  
       <div class="footer">
         <p>&copy; 2013 Iowa State University and/or DEC13-14. All Rights Reserved.</p>

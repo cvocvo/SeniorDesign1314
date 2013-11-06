@@ -7,19 +7,19 @@ class Hypervisor_Model{
 	private $machines = array(
 		array(
 			'name' => 'matt_attack',
-			'status' => 'on',
+			'status' => 'online',
 			'time_remaining' => '16:16:16',
 			'address' => '1.2.3.4',
 			'owner' => 'matt'
 		),
 		array(
 			'name' => 'matt_client',
-			'status' => 'off',
+			'status' => 'offline',
 			'owner' => 'matt'
 		),
 		array(
 			'name' => 'matt_usrp',
-			'status' => 'not imaged',
+			'status' => 'not_deployed',
 			'owner' => 'matt'
 		)
 	);

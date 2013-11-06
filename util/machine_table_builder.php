@@ -6,7 +6,7 @@ class Machine_Table_Builder{
 		'name' => '%NAME%',
 		'status' => '%STATUS%',
 		'address' => '%ADDRESS%',
-		'time_remaining' => '%TIME_REMAINING';
+		'time_remaining' => '%TIME_REMAINING'
 	);
 
 	private static $status_template_map = array(
@@ -72,12 +72,12 @@ class Machine_Table_Builder{
 
     );
 
-    private static function build_machine_table($machine){
+    public static function build($machine){
     	if(is_array($machine) && isset($machine['status'])){
-    		$template = self::status_template_map[$machine['status']];
-    		foreach(self::key_tag_map as $key => $value){
+    		$template = self::$status_template_map[$machine['status']];
+    		foreach(self::$key_tag_map as $key => $value){
     			if(isset($machine[$key])){
-    				$template = str_replace(%value, $machine[$key], $template);
+    				$template = str_replace($value, $machine[$key], $template);
     			}
     		}
     		return $template;
