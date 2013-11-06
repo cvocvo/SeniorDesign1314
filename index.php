@@ -14,7 +14,7 @@ contains application wide config
 define('SERVER_ROOT', '/var/www/wseclab');
 
 // url root of the server
-define('SITE_ROOT', 'http://129.186.215.213/wseclab');
+define('SITE_ROOT', 'http://10.0.2.15/wseclab');
 
 define('LOGFILE', '/var/log/wseclab/wseclab.log');
 

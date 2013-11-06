@@ -28,20 +28,6 @@ class Login_Controller{
 		Access_Control::redirect_to_landing();
 
 	}
-
-	private function loopback(){
-		header("Location: " . SITE_ROOT . "/index.php?login");
-		exit;
-	}
-
-	private function admin_logged_in(){
-		header("Location: " . SITE_ROOT . "/index.php?admin_class_manager");
-	}
-
-	private function user_logged_in(){
-		header("Location: " . SITE_ROOT . "/index.php?user_index");
-	}
-
 }
 
 ?>

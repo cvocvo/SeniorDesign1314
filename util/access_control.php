@@ -27,7 +27,7 @@ class Access_Control{
 		if($database->authenticate($user, $pass)){
 			$number_of_days = 365;
 			$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days;
-			setcookie("username", $user, $date_of_expiry, "/");
+			setcookie('username', $user, $date_of_expiry, "/");
 			
 			setcookie("token", self::make_token($user), $date_of_expiry, "/");
 			
@@ -39,9 +39,9 @@ class Access_Control{
 	
 		$number_of_days = 365;
 		$date_of_expiry = time() -2592000 * $number_of_days;
-		setcookie("username", $_COOKIE['username'], $date_of_expiry, "/");
-		
-		setcookie("token", $_COOKIE['token'], $date_of_expiry, "/");
+
+		setcookie('username', "", $date_of_expiry, "/");
+		setcookie("token", "", $date_of_expiry, "/");
 	}
 	
 	private static function make_token($user){
@@ -64,9 +64,10 @@ class Access_Control{
 	
 	public static function redirect_to_landing(){
 		
-		$user = $_COOKIE['username'];
-		
 		if(self::is_logged_in()){
+
+			$user = $_COOKIE['username'];
+
 			if(self::is_admin()){
 				Logger::log("access control", "Admin " . $user . " landed");
 				header("Location: " . SITE_ROOT . "/index.php?admin_class_manager");
@@ -77,28 +78,34 @@ class Access_Control{
 			}
 		}
 		else{
-			Logger::log("access control", "Invalid login with " . $user . " landed");
+			Logger::log("access control", "Invalid login redirectected to landing");
 			header("Location: " . SITE_ROOT . "/index.php?login");
 		}
 	}
+
+	public static function redirect_to_login(){
+
+		header("Location: " . SITE_ROOT . "/index.php?login");
+	}
 	
 	public static function gate_admin_page(){
-	
-		$user = $_COOKIE['username'];
-		
+					
 		if(!self::is_admin()){
-			Logger::log("access control", "Nonadmin " . $user . " gated");
+			
+			Logger::log("access control", "Nonadmin gated");
+
 			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}
 	}
 	
 	public static function gate_restricted_page(){
-	
-		$user = $_COOKIE['username'];
+		
 	
 		if(!self::is_logged_in()){
-			Logger::log("access control", "Unregistered " . $user . " gated");
+
+			Logger::log("access control", "Unregistered gated");
+			
 			header("Location: " . SITE_ROOT . "/403.php", true, 403);
 			exit();
 		}
