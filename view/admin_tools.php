@@ -104,7 +104,9 @@
 		<div class="col-md-12">
 			<h2>Add New Admin</h2>
 			<h4>Add a new user as an Administrator:</h4>
-			<form role="form">
+			<form role="form" action="index.php" method="post">
+				<input type="hidden" name="page" value="admin_tools" />
+				<input type="hidden" name="form_id" value="create_admin" />
 			    <div class="form-group">
 				    <p>Name:</p>
 					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
