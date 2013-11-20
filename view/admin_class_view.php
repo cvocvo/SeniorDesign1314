@@ -31,7 +31,7 @@
 	  <div class="row">
 		<div class="col-md-12">
 			<ol class="breadcrumb">
-			  <li><a href="#">Class Manager</a></li>
+			  <li><a href="<?print(SITE_ROOT . '/index.php?admin_class_manager');?>">Class Manager</a></li>
 			  <li class="active"><?=$data['class'];?></li>
 			</ol>
 			<h4>Currently Viewing: <?=$data['class'];?></h4>
@@ -55,7 +55,7 @@
 				foreach ($data['images'] as $image){
 					echo '<div class="checkbox"><label>
 					<input type="checkbox" value="' . $image . '">
-					[' . $image . ']</label>
+					' . $image . '</label>
 					</div>';
 				}
 				?>

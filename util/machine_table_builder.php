@@ -6,7 +6,7 @@ class Machine_Table_Builder{
 		'name' => '%NAME%',
 		'status' => '%STATUS%',
 		'address' => '%ADDRESS%',
-		'time_remaining' => '%TIME_REMAINING'
+		'time_remaining' => '%TIME_REMAINING%'
 	);
 
 	private static $status_template_map = array(
@@ -20,8 +20,9 @@ class Machine_Table_Builder{
 			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
 		</div>
 		<div class="col-md-11">
-			<h3 class="clearMargin">[%NAME%] &mdash; Status: %STATUS%</h3>
+			<h3 class="clearMargin">%NAME% &mdash; Status: %STATUS%</h3>
 			<p class="padT10"><strong>IP Address:</strong> %ADDRESS%</p>
+			<p class="padT10"><strong>Time Remaining:</strong> %TIME_REMAINING%</p>
 			<div class="padT10">
 				<button type="submit" value="power_off" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down</button>
 				<button type="submit" value="delete" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete VM</button>
@@ -40,7 +41,7 @@ class Machine_Table_Builder{
 			<span class="glyphicon glyphicon-off palette-darkgray statusPillIcon"></span>
 		</div>
 		<div class="col-md-11">
-			<h3 class="clearMargin">[%NAME%] &mdash; Status: %STATUS%</h3>
+			<h3 class="clearMargin">%NAME% &mdash; Status: %STATUS%</h3>
 			<p class="padT10">This machine is currently offline.</p>
 			<div class="padT10">
 				<button type="submit" value="power_on" class="btn btn-success"><span class="glyphicon glyphicon-flash"></span> Power On</button>
@@ -60,7 +61,7 @@ class Machine_Table_Builder{
 			<span class="glyphicon glyphicon-export palette-white statusPillIcon"></span>
 		</div>
 		<div class="col-md-11">
-			<h3 class="clearMargin">[%NAME%] &mdash; Status: %STATUS%</h3>
+			<h3 class="clearMargin">%NAME% &mdash; Status: %STATUS%</h3>
 			<p class="padT10">This virtual machine has not yet been deployed.</p>
 			<div class="padT10">
 				<button type="submit" value="deploy" class="btn btn-success"><span class="glyphicon glyphicon-export"></span> Deploy Virtual Machine</button>

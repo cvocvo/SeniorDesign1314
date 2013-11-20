@@ -31,11 +31,11 @@
 	  <div class="row">
 		<div class="col-md-12">
 			<ol class="breadcrumb">
-			  <li><a href="#">Class Manager</a></li>
-			  <li><a href="#"><?=$data['class'];?></a></li>
-			  <li class="active">[<?=$data['user'];?>]</li>
+			  <li><a href="<?print(SITE_ROOT . '/index.php?admin_class_manager');?>">Class Manager</a></li>
+			  <li><a href="<?print(SITE_ROOT . '/index.php?admin_class_view&class=' . $data['class']);?>"><?=$data['class'];?></a></li>
+			  <li class="active"><?=$data['user'];?></li>
 			</ol>
-			<h4>Currently Viewing Student: [<?=$data['user'];?>]</h4>
+			<h4>Currently Viewing Student: <?=$data['user'];?></h4>
 		</div>
 	  </div>
 	  
