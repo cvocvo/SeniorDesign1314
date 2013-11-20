@@ -4,6 +4,7 @@ include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
+include_once(SERVER_ROOT . '/util/logger.php');	
 
 /**
 * controller class for the admin class manager page
@@ -32,9 +33,41 @@ class Admin_class_manager_Controller{
 	}
 
 	public function do_post(){
+
+		$success = False;
+		$error = "";
+
+		$form = (isset($_POST['form_id'])) ? $_POST['form_id'] : "";
+
+		//delete_class
+		if($form == 'delete_class'){
+			Logger::log('admin_class_manager', 'deleting class');
+			$success = True;
+		}
+
+		//create_class
+		elseif($form == 'create_class') {
+			Logger::log('admin_class_manager', 'creating class');
+			$success = True;
+		}
+
+		//add_student_to_class
+		elseif($form == 'add_student_to_class'){
+			Logger::log('admin_class_manager', 'adding student to class');
+			$success = False;
+			$error = 'test error';
+		}
+
+		//re render page with status notification
 		$this->main(array());
 
-		echo '<script>alert("Action completed successfully");</script>';
+		if($success){
+			echo '<script>alert("Action completed successfully");</script>';	
+		}
+		else{
+			echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
+		}
+		
 	}
 }
 
