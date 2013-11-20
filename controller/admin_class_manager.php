@@ -32,7 +32,9 @@ class Admin_class_manager_Controller{
 	}
 
 	public function do_post(){
-		
+		$this->main(array());
+
+		echo '<script>alert("Action completed successfully");</script>';
 	}
 }
 
