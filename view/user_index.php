@@ -44,6 +44,13 @@
 		</div>
 	  </div>
 
+	  <?php
+	  foreach($data['machine_tables'] as $table){
+	  	echo $table;
+	  }
+	  ?>
+
+	  <!--
       <div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-green clearPadding">
 			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
@@ -86,7 +93,8 @@
 			</div>
 		</div>
       </div>
-	  
+	  -->
+
       <div class="footer">
         <p>&copy; 2013 Iowa State University and/or DEC13-14. All Rights Reserved.</p>
       </div>
