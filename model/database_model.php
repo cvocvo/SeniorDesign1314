@@ -37,6 +37,10 @@ class Database_Model{
 		'default'
 	);
 
+/**
+Database Queries
+*/
+
 	public function list_classes(){
 		return $this->classes;
 	}
@@ -92,6 +96,10 @@ class Database_Model{
 		}
 		return $ret;
 	}
+
+/**
+Database Actions
+*/
 
 }
 

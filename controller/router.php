@@ -31,6 +31,8 @@ if(isset($_POST['page'])){
 
 	Logger::log("router", "POST to " . $_POST['page']);
 
+	Logger::log_post("router", $_POST);
+
 	//pass control over to the specific page's controller
 	$target = SERVER_ROOT . '/controller/' . $_POST['page'] . '.php';
 	

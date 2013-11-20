@@ -14,7 +14,7 @@ class Machine_Table_Builder{
  	'online' => '
  	<form action="index.php" method="post">
     <input type="hidden" name="page" value="user_index"/>
-    <input type="hidden" name="machine" value="%NAME"/>
+    <input type="hidden" name="machine" value="%NAME%"/>
  	<div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-green clearPadding">
 			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
@@ -35,7 +35,7 @@ class Machine_Table_Builder{
     'offline' => '
     <form action="index.php" method="post">
     <input type="hidden" name="page" value="user_index"/>
-    <input type="hidden" name="machine" value="%NAME"/>
+    <input type="hidden" name="machine" value="%NAME%"/>
     <div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-medgray clearPadding">
 			<span class="glyphicon glyphicon-off palette-darkgray statusPillIcon"></span>
@@ -55,7 +55,7 @@ class Machine_Table_Builder{
     'not_deployed' => '
     <form action="index.php" method="post">
     <input type="hidden" name="page" value="user_index"/>
-    <input type="hidden" name="machine" value="%NAME"/>
+    <input type="hidden" name="machine" value="%NAME%"/>
 	<div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-blue clearPadding">
 			<span class="glyphicon glyphicon-export palette-white statusPillIcon"></span>

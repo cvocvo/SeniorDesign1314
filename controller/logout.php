@@ -12,12 +12,6 @@ class Logout_Controller{
 		Logger::log("logout", $_COOKIE['username'] . ":" . $_COOKIE['token']);
 	
 		Access_Control::redirect_to_login();
-
-//		session_destroy();
-		
-		
-
-
 	}
 
 }

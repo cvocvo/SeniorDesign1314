@@ -30,6 +30,10 @@ class Admin_class_manager_Controller{
 		$view->assign('base_images', $hvModel->get_base_images());
 		
 	}
+
+	public function do_post(){
+		
+	}
 }
 
 ?>

@@ -43,6 +43,10 @@ class Admin_class_view_Controller{
 			
 	}
 
+	public function do_post(){
+		
+	}
+
 }
 
 ?>

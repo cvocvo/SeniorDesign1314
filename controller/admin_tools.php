@@ -29,6 +29,10 @@ class Admin_tools_Controller{
 
     }
 
+    public function do_post(){
+    	
+    }
+
 }
 
 ?>

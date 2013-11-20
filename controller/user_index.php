@@ -36,6 +36,10 @@ class User_index_Controller
        
     }
 
+    public function do_post(){
+    	
+    }
+
 }
 
 ?>

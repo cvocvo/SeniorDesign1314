@@ -30,6 +30,10 @@ class Hypervisor_Model{
 		'base_usrp'
 	);
 
+/**
+Hypervisor Getters
+*/
+
 	public function get_machines_for_user($user){
 		
 		$ret = array();
@@ -47,7 +51,9 @@ class Hypervisor_Model{
 		return $this->images;
 	}
 
-
+/**
+Hypervisor Actions
+*/
 
 
 
