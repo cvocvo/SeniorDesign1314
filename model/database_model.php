@@ -46,14 +46,15 @@ class Database_Model{
 	}
 	
 	public function list_students_in_class($class){
-		/*$ret = array();
+		$ret = array();
 
-		foreach($this->users as $user){
-			if($user->class == $class){
-				array_push($ret, $user);
+		foreach($this->users as $name=>$data){
+			if(array_key_exists('class', $data) && 
+					$this->users[$name]['class'] == $class){
+				$ret[$name] = $data;
 			}
-		}*/
-		return $this->users;
+		}
+		return $ret;
 	}
 
 	public function is_user($user){
@@ -68,7 +69,29 @@ class Database_Model{
 		return 'default';
 	}
 
+	public function list_admins(){
+		$ret = array();
 
+		foreach($this->users as $name=>$data){
+			if(array_key_exists('is_admin', $data) &&
+					$this->users[$name]['is_admin']){
+				$ret[$name] = $data;
+			}
+		}
+		return $ret;
+	}
+
+	public function list_nonadmins(){
+		$ret = array();
+
+		foreach($this->users as $name => $data){
+			if(array_key_exists('is_admin', $data) &&
+					!$this->users[$name]['is_admin']){
+				$ret[$name] = $data;
+			}
+		}
+		return $ret;
+	}
 
 }
 

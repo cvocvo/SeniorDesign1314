@@ -31,7 +31,9 @@
 	  <div class="jumbotron row padT20">
 		<div class="col-md-12">
 			<h2>Edit My Details</h2>
-			<form>
+			<form action="index.php" method="post">
+				<input type="hidden" name="page" value="admin_tools" />
+				<input type="hidden" name="form_id" value="edit_details" />
 				<p>*Only fields with information in them will be changed.</p>
 				<div class="form-group">
 					<p>Name:</p>
@@ -57,20 +59,40 @@
 		<div class="col-md-12">
 			<h2>Admins Manager</h2>
 			<p>Current Admin Users:</p>
+
+			<form action="index.php" method="post">
+			<input type="hidden" name="page" value="admin_tools" />
+			<input type="hidden" name="form_id" value="remove_admin" />
 			<ul id="classManagerList" class="list-unstyled">
-				<li><a href="#">Matt Mallet</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove From Admins</a></li>
-				<li><a href="#">Chris Van Oort (Me)</a></li>
-			</ul>
+
+			<?php
+			foreach($data['admins'] as $admin_name => $admin_data){
+				echo '<li>
+					<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $admin_name . '">' . $admin_name . '</a>
+				';
+				if(!$admin_data['is_me']){
+					echo '<button type="submit" value="' . $admin_name . '" class="btn btn-danger pull-right">
+					<span class="glyphicon glyphicon-remove"></span> Remove From Admins</button>';
+
+				}
+				echo '</li>';
+				/*<li><a href="">Matt Mallet</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove From Admins</a></li>
+				<li><a href="#">Chris Van Oort (Me)</a></li>*/
+			}
+			?>
+			</ul></form>
 			<p><strong>Note:</strong> By clicking 'Remove From Admins' you will remove all user access to the administrative view. You do not have the ability to remove yourself from the admins group.</p>
 			
 			<h2>Add Existing User to Admins</h2>
-			<form role="form">
+			<form role="form" action="index.php" method="post">
+			<input type="hidden" name="page" value="admin_tools" />
+			<input type="hidden" name="form_id" value="add_admin" />
 				<div class="form-group">
 					<select class="form-control">
-						<option>Khan, Tahsin</option>
-						<option>Niu, Frank</option>
-						<option>Tran, Dustin</option>
-						<option>Wang, Yuqi</option>
+					<?php
+					foreach($data['nonadmins'] as $username => $user_data){
+						echo '<option>' . $username . '</option>';
+					}?>
 					</select>
 				</div>
 				<button type="submit" class="btn btn-success">Add user to Administrators Group</button>
