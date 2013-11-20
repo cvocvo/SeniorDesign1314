@@ -45,6 +45,49 @@ class Admin_class_view_Controller{
 
 	public function do_post(){
 		
+		$success = False;
+		$error = "";
+
+		$class = (isset($_POST['class'])) ? $_POST['class'] : "";
+		$action = (isset($_POST['action'])) ? $_POST['action'] : "";
+
+		//save
+		if($action == 'save'){
+			Logger::log('admin_class_view', 'saving changes to class');
+			$success = True;
+		}
+
+		//renew
+		elseif ($action == 'renew') {
+			Logger::log('admin_class_view', 'renewing machines for class');
+			$success = True;
+		}
+
+		//power_down_vms
+		elseif ($action == 'power_down_vms') {
+			Logger::log('admin_class_view', 'powering down vms for class');
+			$success = True;
+		}
+
+		//delete_vms
+		elseif ($action == 'delete_vms') {
+			Logger::log('admin_class_view', 'deleting vms for class');
+			$success = True;
+		}
+
+		else{
+			$error = "Unknown Action";
+		}
+
+		//re render page with status notification
+		$this->main(array('class' => $class));
+
+		if($success){
+			echo '<script>alert("Action completed successfully");</script>';	
+		}
+		else{
+			echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
+		}
 	}
 
 }

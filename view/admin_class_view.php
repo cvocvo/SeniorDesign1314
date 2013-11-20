@@ -59,13 +59,13 @@
 					</div>';
 				}
 				?>
-				<button type="submit" value="save" class="btn btn-success">Change Class Name</button>	
+				<button type="submit" name="action" value="save" class="btn btn-success">Change Class Name</button>	
 			<br>
-			<button type="submit" value="renew" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew Time Remaining for All VM's</button>
+			<button type="submit" name="action" value="renew" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew Time Remaining for All VM's</button>
 			<br><br>
-			<button type="submit" value="power_down_vms" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down All VM's</button>
+			<button type="submit" name="action" value="power_down_vms" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down All VM's</button>
 			<br><br>
-			<button type="submit" value="delete_vms" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete All VM's</button>
+			<button type="submit" name="action" value="delete_vms" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete All VM's</button>
 			</form>
 		</div>
       </div>

@@ -58,6 +58,10 @@ class Admin_class_manager_Controller{
 			$error = 'test error';
 		}
 
+		else{
+			$error = "Unknown Action";
+		}
+
 		//re render page with status notification
 		$this->main(array());
 
