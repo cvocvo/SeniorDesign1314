@@ -1,5 +1,14 @@
 <?php
 
+/**
+Routers requests to the correct controllers based
+on the query string for GETs, and on the page form value
+for POSTs.
+
+Handles errors associated with invalid page names by
+routing to a 404 page instead.
+*/
+
 include_once(SERVER_ROOT . '/util/logger.php');
 
 //Automatically includes files containing classes that are called

@@ -1,5 +1,16 @@
 <?php
 
+/**
+Controller for the admin_tools page
+
+Generates all dynamic content on GETs to the page, and
+handles form processing on POSTs to the page
+
+This page allows an admin to view and manage their own
+profile as well as all other admins in the system. They
+are also able to add and remove admins from this page.
+*/
+
 include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/model/database_model.php');

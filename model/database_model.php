@@ -1,5 +1,13 @@
 <?php
 
+/**
+Model of the database
+
+Abstracts database queries into easier to understand
+function calls. Implements all functionality needed
+to interact with a MySQL database.
+*/
+
 class Database_Model{
 
 	public function __construct(){}
@@ -25,7 +33,7 @@ class Database_Model{
 		'tahsin' => array(
 			'password' => 'labview',
 			'is_admin' => False,
-			'class' => 'CprE530B'
+			'class' => 'CprE530A'
 		)
 	);
 

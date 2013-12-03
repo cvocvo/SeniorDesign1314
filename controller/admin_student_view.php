@@ -1,5 +1,16 @@
 <?php
 
+/**
+Controller for the admin_student_view page
+
+Generates all dynamic content on GETs to the page, and
+handles form processing on POSTs to the page
+
+This page allows an admin to view an individual student
+in more detail, as well as change their information,
+and view and manage their virtual machines.
+*/
+
 include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');

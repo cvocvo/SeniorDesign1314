@@ -1,5 +1,20 @@
 <?php
 
+/**
+Central authentication and permission restriction system.
+
+On first login, the username and password are checked. If
+they are correct, 2 cookies are set. The first is username.
+This is used to identify the user and determine which
+pages they have access to. The second is the token.
+This is a hash of the username value, a 32 byte server
+side secret, and a time value. Both cookies are checked
+on restricted pages, and if either is invalid, access
+will be blocked.
+
+TODO: add time value
+*/
+
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/util/logger.php');	
 

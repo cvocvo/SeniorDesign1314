@@ -1,7 +1,14 @@
 <?php
 
 /**
-This is pink kinda cool yeah
+Controller for the admin_class_view page
+
+Generates all dynamic content on GETs to the page, and
+handles form processing on POSTs to the page
+
+This is the main point of interaction for students. This
+page allows students to deploy and manage their own virtual
+machines.
 */
 
 include_once(SERVER_ROOT . '/util/access_control.php');

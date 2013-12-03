@@ -1,5 +1,16 @@
 <?php
 
+/**
+Controller for the admin_class_view page
+
+Generates all dynamic content on GETs to the page, and
+handles form processing on POSTs to the page
+
+This page allows an admin to view and edit the details
+of an individual class, as well as view and edit members
+of the class.
+*/
+
 include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');

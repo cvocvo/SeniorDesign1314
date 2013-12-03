@@ -1,13 +1,11 @@
 <?php
 
 /**
-
 Main entry point into the application
-passes query string and args to router to map to correct
-page
 
-contains application wide config
-
+All http requests land here and are passed to the router.
+This file is responsible for setting up the application
+wide configuration before control is passed to the router.
 */
 
 // document root of the application files on web server

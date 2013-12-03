@@ -1,5 +1,16 @@
 <?php
 
+/**
+Controller for the login page
+
+Generates all dynamic content on GETs to the page, and
+handles form processing on POSTs to the page
+
+This page gets the users credentials and passes it to the
+authentication system. The user is then routed to the
+correct landing page if the login was successful.
+*/
+
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/util/access_control.php');

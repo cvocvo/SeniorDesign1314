@@ -1,5 +1,15 @@
 <?php
 
+/**
+Controller for the admin_class_manager page
+
+Generates all dynamic content on GETs to this page, and
+handles form processing on POSTs to the page.
+
+This page allows an admin to create and delete classes, as
+well as select an individual class to view in more detail.
+*/
+
 include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');

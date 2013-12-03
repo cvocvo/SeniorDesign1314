@@ -1,5 +1,13 @@
 <?php
 
+/**
+Model of the hypervisor
+
+Abstracts hypervisor interaction into easy to use functions.
+Implements the functionality needed to interact with
+VMWare ESXi 5.1 using the VIX command line toolkit.
+*/
+
 class Hypervisor_Model{
 
 	public function __construct(){}
@@ -21,6 +29,21 @@ class Hypervisor_Model{
 			'name' => 'matt_usrp',
 			'status' => 'not_deployed',
 			'owner' => 'matt'
+		),
+		array(
+			'name' => 'tahsin_attack',
+			'status' => 'not_deployed',
+			'owner' => 'tahsin'
+		),
+		array(
+			'name' => 'tahsin_client',
+			'status' => 'not_deployed',
+			'owner' => 'tahsin'
+		),
+		array(
+			'name' => 'tahsin_usrp',
+			'status' => 'not_deployed',
+			'owner' => 'tahsin'
 		)
 	);
 

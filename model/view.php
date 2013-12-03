@@ -1,7 +1,13 @@
  <?php
+
 /**
- * Handles the view functionality of our MVC framework
- */
+Bridges the gap between page controllers and views.
+Presents a key-value datastore to controllers that is
+used to store dynamic content. The model calls a 
+view template and fills in the dynamic content
+with values from the datastore.
+*/
+
 class View_Model
 {
     /**
