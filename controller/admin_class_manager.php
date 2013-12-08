@@ -45,7 +45,7 @@ class Admin_class_manager_Controller{
 	public function do_post(){
 
 		$success = False;
-		$error = "";
+		$message = "";
 
 		$form = (isset($_POST['form_id'])) ? $_POST['form_id'] : "";
 

@@ -8,7 +8,8 @@ handles form processing on POSTs to the page
 
 This page allows an admin to view and edit the details
 of an individual class, as well as view and edit members
-of the class.
+of the class. The admin can select an individual student
+to view in more detail.
 */
 
 include_once(SERVER_ROOT . '/util/access_control.php');

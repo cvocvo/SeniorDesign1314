@@ -34,6 +34,7 @@
 			<form action="index.php" method="post">
 				<input type="hidden" name="page" value="admin_tools" />
 				<input type="hidden" name="form_id" value="edit_details" />
+				<input type="hidden" name="user" value="<?=$data['user'];?>"/>
 				<p>*Only fields with information in them will be changed.</p>
 				<div class="form-group">
 					<p>Name:</p>
@@ -71,7 +72,7 @@
 					<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $admin_name . '">' . $admin_name . '</a>
 				';
 				if(!$admin_data['is_me']){
-					echo '<button type="submit" value="' . $admin_name . '" class="btn btn-danger pull-right">
+					echo '<button type="submit" name="username" value="' . $admin_name . '" class="btn btn-danger pull-right">
 					<span class="glyphicon glyphicon-remove"></span> Remove From Admins</button>';
 
 				}
@@ -88,7 +89,7 @@
 			<input type="hidden" name="page" value="admin_tools" />
 			<input type="hidden" name="form_id" value="add_admin" />
 				<div class="form-group">
-					<select class="form-control">
+					<select name="username" class="form-control">
 					<?php
 					foreach($data['nonadmins'] as $username => $user_data){
 						echo '<option>' . $username . '</option>';

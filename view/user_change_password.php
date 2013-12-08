@@ -35,10 +35,7 @@
 				<p>*All fields required in order to change password</p>
 				<input type="hidden" name="page" value="user_change_password"/>
 				<div class="form-group">
-					<input type="email" class="form-control" name="password" placeholder="*Enter Current Password">
-				</div>
-				<div class="form-group">
-					<input type="password" class="form-control" name="password2" placeholder="*Enter Current Password Again">
+					<input type="password" class="form-control" name="password" placeholder="*Enter Current Password">
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" name="newpassword" placeholder="*Enter NEW Password">

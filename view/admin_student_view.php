@@ -45,6 +45,7 @@
 			<form action="index.php" method="post">
 				<input type="hidden" name="page" value="admin_student_view"/>
 				<input type="hidden" name="student" value="<?=$data['user'];?>"/>
+				<input type="hidden" name="form_id" value="edit_student" />
 				<p>*Only fields with information in them will be changed.</p>
 				<div class="form-group">
 					<p>Student Name:</p>
@@ -63,7 +64,7 @@
 				</div>
 				<p>Change the class this student is in:</p>
 				<div class="form-group">
-					<select class="form-control">
+					<select name="class" class="form-control">
 					<?php
 					foreach($data['classes'] as $class){
 					  echo '<option>' . $class . '</option>';

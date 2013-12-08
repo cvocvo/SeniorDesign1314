@@ -33,7 +33,7 @@ class Admin_student_view_Controller{
 
         	$machine_tables = array();
         	foreach($hvModel->get_machines_for_user($getVars['student']) as $machine){
-        		$table = Machine_table_builder::build($machine);
+        		$table = Machine_table_builder::build($machine, $getVars['student'], "admin_student_view");
         		if($table != ""){
         			array_push($machine_tables, $table);
         		}
@@ -57,11 +57,12 @@ class Admin_student_view_Controller{
     public function do_post(){
     
     	$success = False;
-        $error = "";
+        $message = "";
+
+        $student = $_POST['student'];
 
         //edit student form
-        if(isset($_POST['student'])){
-            $student = $_POST['student'];
+        if(isset($_POST['form_id']) && $_POST['form_id'] == 'edit_student'){
 
             $success = True;
             Logger::log('admin_student_view', 'editing student details');
@@ -73,19 +74,28 @@ class Admin_student_view_Controller{
             $action = (isset($_POST['action'])) ? $_POST['action'] : "";
 
             if($action == 'power_off'){
+                $success = True;
 
+                Logger::log('admin_student_view', 'power off');
             }
 
             elseif ($action == 'power_on') {
-                # code...
+                $success = True;
+
+                Logger::log('admin_student_view', 'power on');
             }
 
             elseif ($action == 'delete'){
+                $success = True;
 
+                Logger::log('admin_student_view', 'delete');
             }
 
             elseif ($action == 'deploy') {
-                # code...
+                $success = True;
+                $message = 'Cloning may take up to 30 minutes';
+
+                Logger::log('admin_student_view', 'deploy');
             }
 
             else{
@@ -103,10 +113,15 @@ class Admin_student_view_Controller{
         $this->main(array('student' => $student));
 
         if($success){
-            echo '<script>alert("Action completed successfully");</script>';    
+            if($message == ""){
+                echo '<script>alert("Action completed successfully");</script>';    
+            }
+            else{
+                echo '<script>alert("Action completed successfully\n\nNOTE:' . $message . '");</script>';    
+            }
         }
         else{
-            echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
+            echo '<script>alert("Error encountered while performing action\n\nERROR:' . $message . '");</script>';
         }
     
     }

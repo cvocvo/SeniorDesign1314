@@ -20,7 +20,7 @@
     <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?user_index.php');?>">Virtual Machines</a></li>
+			<li class="active"><a href="<?print(SITE_ROOT . '/index.php?user_index');?>">Virtual Machines</a></li>
 			<li><a href="<?print(SITE_ROOT . '/index.php?user_change_password');?>">Change Password</a></li>
 			<li><a href="<?print(SITE_ROOT . '/index.php?logout');?>">Log Out</a></li>
         </ul>

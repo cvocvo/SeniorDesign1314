@@ -32,7 +32,7 @@ class Database_Model{
 		),
 		'tahsin' => array(
 			'password' => 'labview',
-			'is_admin' => False,
+			'is_admin' => True,
 			'class' => 'CprE530A'
 		)
 	);

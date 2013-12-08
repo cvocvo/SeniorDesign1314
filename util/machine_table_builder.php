@@ -13,8 +13,9 @@ class Machine_Table_Builder{
 
  	'online' => '
  	<form action="index.php" method="post">
-    <input type="hidden" name="page" value="user_index"/>
-    <input type="hidden" name="machine" value="%NAME%"/>
+ 	<input type="hidden" name="machine" value="%NAME%"/>
+    <input type="hidden" name="page" value="%PAGE%"/>
+    <input type="hidden" name="student" value="%STUDENT%"/>
  	<div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-green clearPadding">
 			<span class="glyphicon glyphicon-flash palette-white statusPillIcon"></span>
@@ -34,7 +35,8 @@ class Machine_Table_Builder{
 
     'offline' => '
     <form action="index.php" method="post">
-    <input type="hidden" name="page" value="user_index"/>
+    <input type="hidden" name="page" value="%PAGE%"/>
+    <input type="hidden" name="student" value="%STUDENT%"/>
     <input type="hidden" name="machine" value="%NAME%"/>
     <div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-medgray clearPadding">
@@ -54,7 +56,8 @@ class Machine_Table_Builder{
 
     'not_deployed' => '
     <form action="index.php" method="post">
-    <input type="hidden" name="page" value="user_index"/>
+    <input type="hidden" name="page" value="%PAGE%"/>
+    <input type="hidden" name="student" value="%STUDENT%"/>
     <input type="hidden" name="machine" value="%NAME%"/>
 	<div class="jumbotron lessPad row">
 		<div class="col-md-1 statusPill palette-BC-blue clearPadding">
@@ -73,7 +76,7 @@ class Machine_Table_Builder{
 
     );
 
-    public static function build($machine){
+    public static function build($machine, $student, $page_source){
     	if(is_array($machine) && isset($machine['status'])){
     		$template = self::$status_template_map[$machine['status']];
     		foreach(self::$key_tag_map as $key => $value){
@@ -81,6 +84,8 @@ class Machine_Table_Builder{
     				$template = str_replace($value, $machine[$key], $template);
     			}
     		}
+    		$template = str_replace('%PAGE%', $page_source, $template);
+    		$template = str_replace('%STUDENT%', $student, $template);
     		return $template;
     	}
     	return "";
