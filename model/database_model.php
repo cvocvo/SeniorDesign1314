@@ -1,5 +1,7 @@
 <?php
 
+include_once(SERVER_ROOT . '/util/logger.php');
+
 /**
 Model of the database
 
@@ -11,14 +13,6 @@ to interact with a MySQL database.
 class Database_Model{
 
 	public function __construct(){}
-
-	public function authenticate($user, $pass){
-		return $this->users[$user]['password'] == $pass;
-	}
-
-	public function is_admin($user){
-		return $this->users[$user]['is_admin'];
-	}
 
 	private $users = array(
 		'george' => array(
@@ -45,12 +39,75 @@ class Database_Model{
 		'default'
 	);
 
+	private function connect(){
+		$con = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+		if(mysqli_connect_errno()){
+			return NULL;
+		}
+		return $con;
+	}
+
+	private function report_error(){
+		return array(
+			'error' => TRUE,
+			'message' => mysqli_connect_error()
+		);
+	}
+
 /**
 Database Queries
 */
 
+	public function authenticate($user, $pass){
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = " SELECT user_hash, user_salt
+		FROM users
+		WHERE user_name = '" . $user . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+
+		while($row = mysqli_fetch_array($result)){
+			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
+		}
+
+		mysqli_close($con);
+
+		return $this->users[$user]['password'] == $pass;
+	}
+
+	public function is_admin($user){
+		return $this->users[$user]['is_admin'];
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = " SELECT user_is_admin
+		FROM users
+		WHERE user_name = '" . $user . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+
+		while($row = mysqli_fetch_array($result)){
+			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
+		}
+
+		mysqli_close($con);
+	}
+
 	public function list_classes(){
-		return $this->classes;
+		//return $this->classes;
+
 	}
 
 	public function is_class($class){

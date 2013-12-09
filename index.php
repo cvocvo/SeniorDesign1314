@@ -16,6 +16,11 @@ define('SITE_ROOT', 'http://10.0.2.15/wseclab');
 
 define('LOGFILE', '/var/log/wseclab/wseclab.log');
 
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'wseclab');
+define('DB_USER', 'root');
+define('DB_PASSWORD', 'password');
+
 set_include_path('/var/www/wseclab');
 
 require_once(SERVER_ROOT . '/controller/router.php');
