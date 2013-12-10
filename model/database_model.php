@@ -72,6 +72,9 @@ Database Queries
 			return $this->report_error();
 		}
 
+		$user = mysqli_escape_string($con, $user);
+		$pass = mysqli_escape_string($con, $pass);
+
 		$query = " SELECT user_hash, user_salt
 		FROM users
 		WHERE user_name = '" . $user . "';";
