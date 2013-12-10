@@ -36,14 +36,14 @@
 				<input type="hidden" name="form_id" value="edit_details" />
 				<input type="hidden" name="user" value="<?=$data['user'];?>"/>
 				<p>*Only fields with information in them will be changed.</p>
-				<div class="form-group">
+				<!--<div class="form-group">
 					<p>Name:</p>
 					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
 				</div>
 				<div class="form-group">
 					<p>Username (email address):</p>
 					<input type="text" class="form-control" name="username" placeholder="somestudentemail@iastate.edu">
-				</div>
+				</div>-->
 				<p>Change Password:</p>
 				<div class="form-group">
 					<input type="password" class="form-control" name="newpassword" placeholder="*Enter NEW Password">
@@ -107,13 +107,13 @@
 				<input type="hidden" name="page" value="admin_tools" />
 				<input type="hidden" name="form_id" value="create_admin" />
 			    <div class="form-group">
-				    <p>Name:</p>
-					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
+				    <p>Name [Required - Alphanumeric no Spaces]</p>
+					<input type="text" class="form-control" name="name" placeholder="username">
 				</div>
-				<div class="form-group">
+				<!--<div class="form-group">
 					<p>Username (email address):</p>
 					<input type="text" class="form-control" name="username" placeholder="somestudentemail@iastate.edu">
-				</div>
+				</div>-->
 				<p>Password:</p>
 				<div class="form-group">
 					<input type="password" class="form-control" name="newpassword" placeholder="*Enter Password">

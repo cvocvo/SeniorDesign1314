@@ -49,37 +49,76 @@ class Admin_class_manager_Controller{
 
 		$form = (isset($_POST['form_id'])) ? $_POST['form_id'] : "";
 
+		$dbModel = new Database_Model;
+
 		//delete_class
 		if($form == 'delete_class'){
-			Logger::log('admin_class_manager', 'deleting class');
-			$success = True;
+			$class = $_POST['class'];
+			$result = $dbModel->delete_class($class);
+			$success = $result['success'];
+			$message = $result['message'];
 		}
 
 		//create_class
 		elseif($form == 'create_class') {
-			Logger::log('admin_class_manager', 'creating class');
-			$success = True;
+			//part 1, create class
+			$name = $_POST['name'];
+			if(ctype_alnum($name)){
+				$result = $dbModel->create_class($name);
+				$success = $result['success'];
+				$message = $result['message'];
+			}
+			else{
+				$success = False;
+				$message = 'Name must be alphanumeric';
+			}
+			//part 2, use upload file if present to create
+			//users in the class
 		}
 
 		//add_student_to_class
 		elseif($form == 'add_student_to_class'){
-			Logger::log('admin_class_manager', 'adding student to class');
-			$success = False;
-			$error = 'test error';
+			if($_POST['newpassword'] == $_POST['newpassword2']){
+
+				$name = $_POST['name'];
+				if(ctype_alnum($name)){
+					$pass = $_POST['newpassword'];
+					$class = $_POST['class'];
+					$is_admin = false;
+
+					$result = $dbModel->create_user($name, $pass, $class, $is_admin);
+					$success = $result['success'];
+					$message = $result['message'];
+				}
+				else{
+					$success = False;
+					$message = 'Name must be alphanumeric';
+				}
+			}
+			else{
+				$success = False;
+				$message = "Passwords do not match";
+			}
 		}
 
 		else{
-			$error = "Unknown Action";
+			$success = False;
+			$message = "Unknown Action";
 		}
 
 		//re render page with status notification
 		$this->main(array());
 
 		if($success){
-			echo '<script>alert("Action completed successfully");</script>';	
+			if($message == ''){
+				echo '<script>alert("Action completed successfully");</script>';	
+			}
+			else{
+				echo '<script>alert("Action completed successfully\n\nNOTE: ' . $message . '");</script>';	
+			}
 		}
 		else{
-			echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
+			echo '<script>alert("Error encountered while performing action\n\nERROR:' . $message . '");</script>';
 		}
 		
 	}

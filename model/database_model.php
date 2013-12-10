@@ -349,6 +349,158 @@ Database Queries
 Database Actions
 */
 
+	public function create_user($user_name, $user_password, $class_name, $is_admin){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$user_name = mysqli_escape_string($con, $user_name);
+		$user_password = mysqli_escape_string($con, $user_password);
+		$class_name = mysqli_escape_string($con, $class_name);
+		$is_admin = mysqli_escape_string($con, $is_admin);
+
+		$user_salt = $this->new_salt();
+
+		$user_hash = $this->get_password_hash($user_password, $user_salt);
+
+		$query = "SELECT class_id FROM classes WHERE class_name = '" . $class_name  . "';";
+		$result = mysqli_query($con, $query);
+		$row = mysqli_fetch_assoc($result);
+		$class_id = $row['class_id'];
+
+		$query = "INSERT INTO users
+		(user_name, user_hash, user_salt, user_class, user_is_admin)
+		VALUES ('" . $user_name . "', '" . $user_hash . "', '" . $user_salt . "',
+			'" . $class_id . "', '" . $is_admin . "');";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function update_user($user_name, $new_name, $user_password, $class_name, $is_admin){
+
+	}
+
+	public function change_user_password($user, $new_password){
+
+	}
+
+	public function promote_user_to_admin($user){
+
+	}
+
+	public function demote_admin($user){
+
+	}
+
+	public function delete_user($user_name){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$user_name = mysqli_escape_string($con, $user_name);
+
+		$query = "DELETE FROM users WHERE user_name = '" . $user_name . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function create_class($class_name){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$class_name = mysqli_escape_string($con, $class_name);
+
+		$query = "INSERT INTO classes (class_name)
+		VALUES ('" . $class_name . "');";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function update_class($class_name){
+
+	}
+
+	public function delete_class($class_name){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$class_name = mysqli_escape_string($con, $class_name);
+
+		$query = "DELETE FROM classes WHERE class_name = '" . $class_name . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
 }
 
 ?>

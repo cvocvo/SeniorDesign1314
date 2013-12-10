@@ -59,8 +59,12 @@
 				<input type="hidden" name="page" value="admin_class_manager" />
 				<input type="hidden" name="form_id" value="create_class" />
 				<div class="form-group">
+					<label for="className">Class Name</label>
+					<input type="text" name="name" id="className" placeHolder="class name"/>
+				</div>
+				<div class="form-group">
 					<label for="classListFile">File input</label>
-					<input type="file" id="classListFile">
+					<input name="user_file" type="file" id="classListFile"/>
 					<p class="help-block">File format should be: lorem, ipsum, bacon</p>
 				</div>
 				<p>Select Virtual Machines to grant class access to:</p>
@@ -113,14 +117,23 @@
 				<input type="hidden" name="page" value="admin_class_manager" />
 				<input type="hidden" name="form_id" value="add_student_to_class" />
 			    <div class="form-group">
-				    <p>Student Name:</p>
-					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
+				    <p>Username [Required - Alphanumeric Only]</p>
+					<input type="text" class="form-control" name="name" placeholder="username">
+				</div>
+				<!--<div class="form-group">
+					<p>Email Address</p>
+					<input type="text" class="form-control" name="email" placeholder="somestudentemail@iastate.edu">
 				</div>
 				<div class="form-group">
-					<p>Username (email address):</p>
-					<input type="text" class="form-control" name="username" placeholder="somestudentemail@iastate.edu">
+					<p>First Name</p>
+					<input type="text" class="form-control" name="first" placeholder="somestudentemail@iastate.edu">
 				</div>
-				<p>Password:</p>
+				<div class="form-group">
+					<p>Last Name</p>
+					<input type="text" class="form-control" name="last" placeholder="somestudentemail@iastate.edu">
+				</div>
+				-->
+				<p>Password [Required]</p>
 				<div class="form-group">
 					<input type="password" class="form-control" name="newpassword" placeholder="*Enter Password">
 				</div>
@@ -129,7 +142,7 @@
 				</div>
 				<p>Add to class:</p>
 				<div class="form-group">
-					<select class="form-control">
+					<select name="class" class="form-control">
 					<?php
 					foreach($data['classes'] as $class){
 					  echo '<option>' . $class . '</option>\n';

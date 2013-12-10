@@ -43,7 +43,6 @@ class User_change_password_Controller{
     		echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
     	}
     }
-
 }
 
 ?>

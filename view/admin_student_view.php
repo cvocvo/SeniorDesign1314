@@ -47,14 +47,18 @@
 				<input type="hidden" name="student" value="<?=$data['user'];?>"/>
 				<input type="hidden" name="form_id" value="edit_student" />
 				<p>*Only fields with information in them will be changed.</p>
+				<!--<div class="form-group">
+					<p>First Name</p>
+					<input type="text" class="form-control" name="first" placeholder="John Doe">
+				</div>
 				<div class="form-group">
-					<p>Student Name:</p>
-					<input type="text" class="form-control" name="studentname" placeholder="John Doe">
+					<p>Last Name</p>
+					<input type="text" class="form-control" name="last" placeholder="John Doe">
 				</div>
 				<div class="form-group">
 					<p>Username (email address):</p>
 					<input type="text" class="form-control" name="username" placeholder="somestudentemail@iastate.edu">
-				</div>
+				</div>-->
 				<p>Change Password:</p>
 				<div class="form-group">
 					<input type="password" class="form-control" name="newpassword" placeholder="*Enter NEW Password">
