@@ -54,12 +54,20 @@ class Database_Model{
 		);
 	}
 
+	private function new_salt(){
+		return bin2hex(openssl_random_pseudo_bytes(32));
+	}
+
+	private function get_password_hash($pass, $salt){
+		return hash("sha256", $pass . $salt);
+	}
+
 /**
 Database Queries
 */
 
 	public function authenticate($user, $pass){
-		/*$con = $this->connect();
+		$con = $this->connect();
 		if(!$con){
 			return $this->report_error();
 		}
@@ -71,15 +79,17 @@ Database Queries
 
 		if(!$result){
 			Logger::log("database_model", mysqli_error($con));
+			return false;
 		}
 
-		while($row = mysqli_fetch_array($result)){
-			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
-		}
+		$row = mysqli_fetch_assoc($result);
+		Logger::log("database_model", $user . ' challenge: ' . $row['user_salt'] . ' ' . $row['user_hash']);
+		$ret = $this->get_password_hash($pass, $row['user_salt'])
+			== $row['user_hash'];
+		
+		mysqli_close($con);
 
-		mysqli_close($con);*/
-
-		return $this->users[$user]['password'] == $pass;
+		return $ret;//$this->users[$user]['password'] == $pass;
 	}
 
 	public function is_admin($user){
