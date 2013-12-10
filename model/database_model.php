@@ -59,7 +59,7 @@ Database Queries
 */
 
 	public function authenticate($user, $pass){
-		$con = $this->connect();
+		/*$con = $this->connect();
 		if(!$con){
 			return $this->report_error();
 		}
@@ -77,14 +77,14 @@ Database Queries
 			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
 		}
 
-		mysqli_close($con);
+		mysqli_close($con);*/
 
 		return $this->users[$user]['password'] == $pass;
 	}
 
 	public function is_admin($user){
 		return $this->users[$user]['is_admin'];
-		$con = $this->connect();
+		/*$con = $this->connect();
 		if(!$con){
 			return $this->report_error();
 		}
@@ -102,12 +102,11 @@ Database Queries
 			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
 		}
 
-		mysqli_close($con);
+		mysqli_close($con);*/
 	}
 
 	public function list_classes(){
-		//return $this->classes;
-
+		return $this->classes;
 	}
 
 	public function is_class($class){

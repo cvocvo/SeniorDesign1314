@@ -44,9 +44,14 @@ class Access_Control{
 			$date_of_expiry = time() + 60 * 60 * 24 * $number_of_days;
 			setcookie('username', $user, $date_of_expiry, "/");
 			
-			setcookie("token", self::make_token($user), $date_of_expiry, "/");
+			$token = self::make_token($user);
+			setcookie("token", $token, $date_of_expiry, "/");
 			
 			Logger::log("access control", $user . " Authenticated, cookies set");
+
+			//manually set cookie global to assure first redirect works
+			$_COOKIE['username'] = $user;
+			$_COOKIE['token'] = $token;
 		}
 	}
 	
