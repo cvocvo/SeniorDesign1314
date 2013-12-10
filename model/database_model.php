@@ -80,55 +80,114 @@ Database Queries
 		WHERE user_name = '" . $user . "';";
 		$result = mysqli_query($con, $query);
 
+		$ret = false;
+
 		if(!$result){
 			Logger::log("database_model", mysqli_error($con));
-			return false;
 		}
 
-		$row = mysqli_fetch_assoc($result);
-		Logger::log("database_model", $user . ' challenge: ' . $row['user_salt'] . ' ' . $row['user_hash']);
-		$ret = $this->get_password_hash($pass, $row['user_salt'])
-			== $row['user_hash'];
-		
+		elseif(mysqli_num_rows($result)){
+			$row = mysqli_fetch_assoc($result);
+			Logger::log("database_model", $user . ' challenge: '
+				. $row['user_salt'] . ' ' . $row['user_hash']);
+			$ret = $this->get_password_hash($pass, $row['user_salt'])
+				== $row['user_hash'];
+		}
+
 		mysqli_close($con);
 
 		return $ret;//$this->users[$user]['password'] == $pass;
 	}
 
 	public function is_admin($user){
-		return $this->users[$user]['is_admin'];
-		/*$con = $this->connect();
+
+		$con = $this->connect();
 		if(!$con){
 			return $this->report_error();
 		}
+
+		$user = mysqli_escape_string($con, $user);
 
 		$query = " SELECT user_is_admin
 		FROM users
 		WHERE user_name = '" . $user . "';";
 		$result = mysqli_query($con, $query);
 
+		$ret = false;
+
 		if(!$result){
 			Logger::log("database_model", mysqli_error($con));
 		}
-
-		while($row = mysqli_fetch_array($result)){
-			Logger::log("database_model", $row['user_hash'] . ' ' . $row['user_salt']);
+		
+		elseif(mysqli_num_rows($result)){
+			$row = mysqli_fetch_assoc($result);
+			$ret = $row['user_is_admin'];
 		}
 
-		mysqli_close($con);*/
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function list_classes(){
-		return $this->classes;
+		
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = " SELECT class_name
+		FROM classes;";
+		$result = mysqli_query($con, $query);
+
+		$ret = array();
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($ret, $row['class_name']);
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function is_class($class){
-		return in_array($class, $this->classes);	
+		
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$class = mysqli_escape_string($con, $class);
+
+		$query = " SELECT class_name
+		FROM classes
+		WHERE class_name = '" . $class . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			$ret = mysqli_num_rows($result) == 0;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 	
 	public function list_students_in_class($class){
 		$ret = array();
-
+		//full metal join
+		//TODO .. working on this MySQL syntax..
 		foreach($this->users as $name=>$data){
 			if(array_key_exists('class', $data) && 
 					$this->users[$name]['class'] == $class){
@@ -139,18 +198,69 @@ Database Queries
 	}
 
 	public function is_user($user){
-		return array_key_exists($user, $this->users);
+		
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = " SELECT user_name
+		FROM users
+		WHERE user_name = '" . $user . "';";
+		$result = mysqli_query($con, $user);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		else{
+			$ret = mysqli_num_rows($result) == 0;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function get_class_for_user($user){
-		if(array_key_exists($user, $this->users)
-				&& isset($this->users[$user]['class'])){
-			return $this->users[$user]['class'];
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
 		}
-		return 'default';
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "SELECT classes.class_name
+		FROM users JOIN classes
+		ON users.user_class = classes.class_id
+		AND users.user_name = '" . $user . "';";
+		$result = mysqli_query($con, $query);
+
+		$ret = NULL;
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		elseif (mysqli_num_rows($result)) {
+			$row = mysqli_fetch_assoc($result);
+			$ret = $row('class_name');
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function list_admins(){
+		/*
+		SELECT users.user_name, classes.class_name
+		FROM users JOIN classes
+		ON users.user_class = classes.class_id
+		AND users.user_is_admin = true;
+		*/
 		$ret = array();
 
 		foreach($this->users as $name=>$data){
@@ -163,6 +273,12 @@ Database Queries
 	}
 
 	public function list_nonadmins(){
+		/*
+		SELECT users.user_name, classes.class_name
+		FROM users JOIN classes
+		ON users.user_class = classes.class_id
+		AND users.user_is_admin = false;
+		*/
 		$ret = array();
 
 		foreach($this->users as $name => $data){
