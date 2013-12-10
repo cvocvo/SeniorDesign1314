@@ -220,8 +220,6 @@ Database Queries
 	}
 
 	public function is_user($user){
-
-		return true;
 		
 		$con = $this->connect();
 		if(!$con){
@@ -393,8 +391,78 @@ Database Actions
 		return $ret;
 	}
 
-	public function update_user($user_name, $new_name, $user_password, $class_name, $is_admin){
+	public function update_user($user_name, $user_password, $class_name){
 
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$user_name = mysqli_escape_string($con, $user_name);
+		$user_password = mysqli_escape_string($con, $user_password);
+		$class_name = mysqli_escape_string($con, $class_name);
+
+		$user_salt = '';
+		$user_hash = '';
+
+		if($user_password != ''){
+			
+			$user_salt = $this->new_salt();
+			$user_hash = $this->get_password_hash($user_password, $user_salt);
+		}
+
+		$class_id = '';
+
+		if($class_name != ''){
+
+			$query = "SELECT class_id FROM classes WHERE class_name = '" . $class_name  . "';";
+			$result = mysqli_query($con, $query);
+			$row = mysqli_fetch_assoc($result);
+			$class_id = $row['class_id'];
+		}
+
+		$query = '';
+		if($user_hash != '' && $class_id != ''){
+			
+			$query = "UPDATE users
+			SET user_hash = '" . $user_hash . "',
+			user_salt = '" . $user_salt . "',
+			user_class = '" . $class_id . "'
+			WHERE user_name = '" . $user_name . "';";
+		}
+		elseif($user_hash != '' && $class_id == ''){
+			
+			$query = "UPDATE users
+			SET user_hash = '" . $user_hash . "',
+			user_salt = '" . $user_salt . "'
+			WHERE user_name = '" . $user_name . "';";
+		}
+		else{
+			
+			$query = "UPDATE users
+			SET user_class = '" . $class_id . "'
+			WHERE user_name = '" . $user_name . "';";
+		}
+
+		Logger::log("database_model", $query);
+
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function change_user_password($user, $new_password){
@@ -403,10 +471,61 @@ Database Actions
 
 	public function promote_user_to_admin($user){
 
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "UPDATE users SET user_is_admin = true WHERE user_name = '" . $user . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+
 	}
 
 	public function demote_admin($user){
 
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "UPDATE users SET user_is_admin = false WHERE user_name = '" . $user . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 	}
 
 	public function delete_user($user_name){

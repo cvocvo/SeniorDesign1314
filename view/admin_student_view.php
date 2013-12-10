@@ -76,7 +76,7 @@
 					?>
 					</select>
 				</div>
-				<button type="submit" class="btn btn-success">Save Changes</button>
+				<button type="submit" name="action" value="edit" class="btn btn-success">Save Changes</button>
 			</form>
 		</div>
       </div>

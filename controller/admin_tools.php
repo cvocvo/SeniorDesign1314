@@ -44,44 +44,83 @@ class Admin_tools_Controller{
     public function do_post(){
 
     	$success = False;
-    	$error = "";
+    	$message = "";
 
     	$form = $_POST['form_id'];
+
+        $dbModel = new database_Model;
 
     	if($form == 'edit_details'){
     		$user = $_POST['user'];
 
-    		$success = True;
+            if($_POST['newpassword'] == $_POST['newpassword2']){
 
-    		Logger::log('admin_tools', 'editing my details');
+                
+                $pass = $_POST['newpassword'];
+                $class = "default";
+                $is_admin = true;
+
+                $result = $dbModel->update_user($user, $pass, '');
+                $success = $result['success'];
+                $message = $result['message'];
+            }
+            else{
+                $success = False;
+                $message = "Passwords do not match";
+            }
     	}
 
     	elseif($form == 'remove_admin'){
-    		$success = True;
-
-    		Logger::log('admin_tools', 'removing admin');
+            $user = $_POST['username'];
+            $result = $dbModel->demote_admin($user);
+    		$success = $result['success'];
+            $message = $result['message'];
     	}
 
     	elseif($form == 'add_admin'){
-    		$success = True;
-
-    		Logger::log('admin_tools', 'adding admin');
+    		$user = $_POST['username'];
+            $result = $dbModel->promote_user_to_admin($user);
+            $success = $result['success'];
+            $message = $result['message'];
     	}
 
     	elseif($form == 'create_admin'){
-			$success = True;
+			if($_POST['newpassword'] == $_POST['newpassword2']){
 
-    		Logger::log('admin_tools', 'creating user as admin');
+                $name = $_POST['name'];
+                if(ctype_alnum($name)){
+                    $pass = $_POST['newpassword'];
+                    $class = "default";
+                    $is_admin = true;
+
+                    $result = $dbModel->create_user($name, $pass, $class, $is_admin);
+                    $success = $result['success'];
+                    $message = $result['message'];
+                }
+                else{
+                    $success = False;
+                    $message = 'Name must be alphanumeric';
+                }
+            }
+            else{
+                $success = False;
+                $message = "Passwords do not match";
+            }
     	}
 
     	$this->main(array());
 
     	if($success){
-    		echo '<script>alert("Action completed successfully");</script>';	
-    	}
-    	else{
-    		echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
-    	}
+            if($message == ''){
+                echo '<script>alert("Action completed successfully");</script>';    
+            }
+            else{
+                echo '<script>alert("Action completed successfully\n\nNOTE: ' . $message . '");</script>';  
+            }
+        }
+        else{
+            echo '<script>alert("Error encountered while performing action\n\nERROR:' . $message . '");</script>';
+        }
     	
     }
 

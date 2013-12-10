@@ -64,8 +64,43 @@ class Admin_student_view_Controller{
         //edit student form
         if(isset($_POST['form_id']) && $_POST['form_id'] == 'edit_student'){
 
-            $success = True;
-            Logger::log('admin_student_view', 'editing student details');
+            $dbModel = new Database_Model;
+
+            //$action = $_POST['action'];
+            /*if($action == 'delete'){
+
+                $result = $dbModel->delete_user($student);
+                $success = $result['success'];
+                $message = $result['message'];
+
+            }*/
+            //else{
+            $class = $_POST['class'];
+
+            if($_POST['newpassword'] != '' &&
+                $_POST['newpassword'] == $_POST['newpassword2']){
+
+                $pass = $_POST['newpassword'];
+                $result = $dbModel->update_user($student, $pass, $class);
+                $success = $result['success'];
+                $message = $result['message'];   
+            }
+
+            elseif($_POST['newpassword'] != '' &&
+
+                $_POST['newpassword'] != $_POST['newpassword2']){
+                $success = false;
+                $message = "Passwords do not match";
+            }
+
+            else{
+
+                $result = $dbModel->update_user($student, '', $class);
+                $success = $result['success'];
+                $message = $result['message'];   
+            }
+
+            //}
         }
 
         //machine action form

@@ -46,6 +46,7 @@
 			<form action="index.php" method="post" role="form">
 				<input type="hidden" name="page" value="admin_class_view" />
 				<input type="hidden" name="class" value="<?=$data['class'];?>" />
+				<input type="hidden" name="form_id" value="class"/>
 				<div class="form-group">
 					<p>Class Name:</p>
 					<input type="text" class="form-control" name="classname" placeholder="Enter your class name">
@@ -74,16 +75,23 @@
 		<div class="col-md-12">
 			<h2>Students</h2>
 			<p>Looking to change a username/name/password/reset a VM for a student? Click the student's name below:</p>
-			<ul class="list-unstyled">
-			<?php
-			foreach ($data['students'] as $student_name => $student_info){
-				echo '<li>
-					<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $student_name . '">' . $student_name . '</a>
-				</li>
-				';
-			}
-			?>
-			</ul>
+			<form action="index.php" method="post" role="form">
+				<input type="hidden" name="page" value="admin_class_view" />
+				<input type="hidden" name="form_id" value="students"/>
+				<input type="hidden" name="class" value="<?=$data['class'];?>" />
+				<ul class="list-unstyled">
+				<?php
+				foreach ($data['students'] as $student_name => $student_info){
+					$disabled = ($student_name == $data['user']) ? 'disabled' : '';
+					echo '<li>
+						<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $student_name . '">' . $student_name . '</a>
+						<button type="submit" name="student" value="' . $student_name . '" class="btn btn-danger pull-right" ' . $disabled . '><span class="glyphicon glyphicon-remove"></span>Delete Student</button>	
+					</li>
+					';
+				}
+				?>
+				</ul>
+			</form>
 		</div>
       </div>
 

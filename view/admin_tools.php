@@ -107,7 +107,7 @@
 				<input type="hidden" name="page" value="admin_tools" />
 				<input type="hidden" name="form_id" value="create_admin" />
 			    <div class="form-group">
-				    <p>Name [Required - Alphanumeric no Spaces]</p>
+				    <p>Name [Required - Alphanumeric Only]</p>
 					<input type="text" class="form-control" name="name" placeholder="username">
 				</div>
 				<!--<div class="form-group">

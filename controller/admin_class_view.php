@@ -45,6 +45,7 @@ class Admin_class_view_Controller{
 			$view->assign('class', $getVars['class']);
 			$view->assign('students', $dbModel->list_students_in_class($getVars['class']));
 			$view->assign('images', $hvModel->get_base_images());
+			$view->assign('user', $_COOKIE['username']);
 
 		}
 		else{
@@ -58,48 +59,67 @@ class Admin_class_view_Controller{
 	public function do_post(){
 		
 		$success = False;
-		$error = "";
+		$message = "";
 
 		$class = (isset($_POST['class'])) ? $_POST['class'] : "";
-		$action = (isset($_POST['action'])) ? $_POST['action'] : "";
+		$form_id = $_POST['form_id'];
 
-		//save
-		if($action == 'save'){
-			Logger::log('admin_class_view', 'saving changes to class');
-			$success = True;
-		}
+		if($form_id == 'class'){
+			Logger::log('admin_class_view', 'class form active');
+			$action = (isset($_POST['action'])) ? $_POST['action'] : "";
 
-		//renew
-		elseif ($action == 'renew') {
-			Logger::log('admin_class_view', 'renewing machines for class');
-			$success = True;
-		}
+			//save
+			if($action == 'save'){
+				Logger::log('admin_class_view', 'saving changes to class');
+				$success = True;
+			}
 
-		//power_down_vms
-		elseif ($action == 'power_down_vms') {
-			Logger::log('admin_class_view', 'powering down vms for class');
-			$success = True;
-		}
+			//renew
+			elseif ($action == 'renew') {
+				Logger::log('admin_class_view', 'renewing machines for class');
+				$success = True;
+			}
 
-		//delete_vms
-		elseif ($action == 'delete_vms') {
-			Logger::log('admin_class_view', 'deleting vms for class');
-			$success = True;
+			//power_down_vms
+			elseif ($action == 'power_down_vms') {
+				Logger::log('admin_class_view', 'powering down vms for class');
+				$success = True;
+			}
+
+			//delete_vms
+			elseif ($action == 'delete_vms') {
+				Logger::log('admin_class_view', 'deleting vms for class');
+				$success = True;
+			}
+
+			else{
+				$message = "Unknown Action";
+			}
 		}
 
 		else{
-			$error = "Unknown Action";
+
+			$dbModel = new Database_Model;
+			$result = $dbModel->delete_user($_POST['student']);
+			$success = $result['success'];
+			$message = $result['message'];
+
 		}
 
 		//re render page with status notification
 		$this->main(array('class' => $class));
 
 		if($success){
-			echo '<script>alert("Action completed successfully");</script>';	
-		}
-		else{
-			echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
-		}
+            if($message == ""){
+                echo '<script>alert("Action completed successfully");</script>';    
+            }
+            else{
+                echo '<script>alert("Action completed successfully\n\nNOTE:' . $message . '");</script>';    
+            }
+        }
+        else{
+            echo '<script>alert("Error encountered while performing action\n\nERROR:' . $message . '");</script>';
+        }
 	}
 
 }
