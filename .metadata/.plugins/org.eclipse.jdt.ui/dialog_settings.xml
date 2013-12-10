@@ -22,6 +22,21 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
+	<section name="FatJarPackageWizard">
+		<item value="D:\Documents\GitHub\SeniorDesign1314\JavaCom\JavaCom.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="JavaCom - JavaCom" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="D:\Documents\GitHub\SeniorDesign1314" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
+		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
+		<item value="2" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
+		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="D:\Documents\GitHub\SeniorDesign1314\JavaCom\JavaCom.jar"/>
+			<item value="D:\WALA_out\JavaCom.jar"/>
+		</list>
+		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
+			<item value="D:\Documents\GitHub\SeniorDesign1314.xml"/>
+			<item value=".xml"/>
+		</list>
+	</section>
 	<section name="RenameInformationPopup">
 	</section>
 	<section name="quick_assist_proposal_size">
