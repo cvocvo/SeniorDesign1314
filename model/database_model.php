@@ -96,7 +96,7 @@ Database Queries
 
 		mysqli_close($con);
 
-		return $ret;//$this->users[$user]['password'] == $pass;
+		return $ret;
 	}
 
 	public function is_admin($user){
@@ -176,7 +176,7 @@ Database Queries
 		}
 		
 		else{
-			$ret = mysqli_num_rows($result) == 0;
+			$ret = mysqli_num_rows($result) > 0;
 		}
 
 		mysqli_close($con);
@@ -185,19 +185,43 @@ Database Queries
 	}
 	
 	public function list_students_in_class($class){
+		
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$class = mysqli_escape_string($con, $class);
+
+		$query = "SELECT user_name, user_is_admin, class_name
+		FROM users JOIN classes
+		ON users.user_class = classes.class_id
+		AND classes.class_name = '" . $class . "';";
+		$result = mysqli_query($con, $query);
+
 		$ret = array();
-		//full metal join
-		//TODO .. working on this MySQL syntax..
-		foreach($this->users as $name=>$data){
-			if(array_key_exists('class', $data) && 
-					$this->users[$name]['class'] == $class){
-				$ret[$name] = $data;
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				$data = array();
+				$data['is_admin'] = $row['user_is_admin'];
+				$data['class'] = $row['class_name'];
+				$ret[$row['user_name']] = $data;
 			}
 		}
+
+		mysqli_close($con);
+
 		return $ret;
 	}
 
 	public function is_user($user){
+
+		return true;
 		
 		$con = $this->connect();
 		if(!$con){
@@ -206,16 +230,17 @@ Database Queries
 
 		$user = mysqli_escape_string($con, $user);
 
-		$query = " SELECT user_name
-		FROM users
-		WHERE user_name = '" . $user . "';";
-		$result = mysqli_query($con, $user);
+		$query = "SELECT user_name FROM users WHERE user_name = '" . $user . "';";
+
+		$result = mysqli_query($con, $query);
+
+		$ret = false;
 
 		if(!$result){
 			Logger::log("database_model", mysqli_error($con));
 		}
 		else{
-			$ret = mysqli_num_rows($result) == 0;
+			$ret = mysqli_num_rows($result) > 0;
 		}
 
 		mysqli_close($con);
@@ -246,7 +271,7 @@ Database Queries
 		
 		elseif (mysqli_num_rows($result)) {
 			$row = mysqli_fetch_assoc($result);
-			$ret = $row('class_name');
+			$ret = $row['class_name'];
 		}
 
 		mysqli_close($con);
@@ -255,38 +280,68 @@ Database Queries
 	}
 
 	public function list_admins(){
-		/*
-		SELECT users.user_name, classes.class_name
+		
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = "SELECT user_name, user_is_admin, class_name
 		FROM users JOIN classes
 		ON users.user_class = classes.class_id
-		AND users.user_is_admin = true;
-		*/
+		AND users.user_is_admin = true;";
+		$result = mysqli_query($con, $query);
+
 		$ret = array();
 
-		foreach($this->users as $name=>$data){
-			if(array_key_exists('is_admin', $data) &&
-					$this->users[$name]['is_admin']){
-				$ret[$name] = $data;
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				$data = array();
+				$data['is_admin'] = $row['user_is_admin'];
+				$data['class'] = $row['class_name'];
+				$ret[$row['user_name']] = $data;
 			}
 		}
+
+		mysqli_close($con);
+
 		return $ret;
 	}
 
 	public function list_nonadmins(){
-		/*
-		SELECT users.user_name, classes.class_name
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = "SELECT user_name, user_is_admin, class_name
 		FROM users JOIN classes
 		ON users.user_class = classes.class_id
-		AND users.user_is_admin = false;
-		*/
+		AND users.user_is_admin = false;";
+		$result = mysqli_query($con, $query);
+
 		$ret = array();
 
-		foreach($this->users as $name => $data){
-			if(array_key_exists('is_admin', $data) &&
-					!$this->users[$name]['is_admin']){
-				$ret[$name] = $data;
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				$data = array();
+				$data['is_admin'] = $row['user_is_admin'];
+				$data['class'] = $row['class_name'];
+				$ret[$row['user_name']] = $data;
 			}
 		}
+
+		mysqli_close($con);
+
 		return $ret;
 	}
 

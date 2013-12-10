@@ -71,11 +71,9 @@
 				echo '<li>
 					<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $admin_name . '">' . $admin_name . '</a>
 				';
-				if(!$admin_data['is_me']){
-					echo '<button type="submit" name="username" value="' . $admin_name . '" class="btn btn-danger pull-right">
-					<span class="glyphicon glyphicon-remove"></span> Remove From Admins</button>';
-
-				}
+				$disabled = ($admin_data['is_me']) ? 'disabled' : '';
+				echo '<button type="submit" name="username" value="' . $admin_name . '" class="btn btn-danger pull-right" ' . $disabled . '>
+				<span class="glyphicon glyphicon-remove"></span> Remove From Admins</button>';
 				echo '</li>';
 				/*<li><a href="">Matt Mallet</a><a href="#" class="btn btn-danger pull-right"><span class="glyphicon glyphicon-remove"></span> Remove From Admins</a></li>
 				<li><a href="#">Chris Van Oort (Me)</a></li>*/

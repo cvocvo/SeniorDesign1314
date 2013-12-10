@@ -10,7 +10,7 @@ This page allows users to change their password
 */
 
 include_once(SERVER_ROOT . '/util/access_control.php');
-include_once(SERVER_ROOT . '/model/databse_model.php');
+include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/util/logger.php');
 
