@@ -623,17 +623,63 @@ Database Actions
 		$success = true;
 		$message = '';
 
+		$good = 0;
+		$bad = 0;
 		foreach ($users as $user_name => $user_data) {
 			Logger::log('database_model', 'deleting user ' . $user_name);
-			$result = $this->delete_user($user);
+			$result = $this->delete_user($user_name);
 			$success &= $result['success'];
-			$message .= ($result['message'] != '') ? $user_name . ': ' . $result['message'] . '\n' : '';
+			$message .= $result['message'];
+			if($result['message'] != ''){
+				$message .= '\n';
+			}
+			if($result['success']){
+				$good++;
+			}
+			else{
+				$bad++;
+			}
 		}
+
+		$message .= $good . ' users deleted successfully, ' . $bad . ' could not be deleted';
 
 		return array('success' => $success, 'message' => $message);
 	}
 
 	public function create_users_in_class($class_name, $user_list){
+
+		$ret = array('success' => True, 'message' => '');
+
+		if(!is_array($user_list)){
+			$ret['success'] = False;
+			$ret['message'] = 'User list not an array';
+			return $ret;
+		}
+
+		$good = 0;
+		$bad = 0;
+		foreach($user_list as $user){
+			Logger::log('database_model', 'creating user ' . $user);
+			$pass = strrev($user);
+			$is_admin = false;
+			$result = $this->create_user($user, $pass, $class_name, $is_admin);
+			$ret['success'] &= $result['success'];
+			$ret['message'] .= $result['message'];
+			//if something was added, add a newline
+			if($result['message'] != ''){
+				$ret['message'] .= '\n';
+			}
+			if($result['success']){
+				$good++;
+			}
+			else{
+				$bad++;
+			}
+		}
+
+		$ret['message'] .= $good . ' users created successfully, ' . $bad . ' errors creating users';
+
+		return $ret;
 
 	}
 }

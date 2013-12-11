@@ -55,7 +55,7 @@
 		<div class="col-md-12">
 			<h2>Add Class</h2>
 			<p>Optionally import a comma-delimited class file. <strong>Note:</strong> This will automatically create users for this class.</p>
-			<form action="index.php" method="post" role="form">
+			<form action="index.php" method="post" role="form" enctype="multipart/form-data">
 				<input type="hidden" name="page" value="admin_class_manager" />
 				<input type="hidden" name="form_id" value="create_class" />
 				<div class="form-group">
@@ -63,8 +63,8 @@
 					<input type="text" name="name" id="className" placeHolder="class name"/>
 				</div>
 				<div class="form-group">
-					<label for="classListFile">File input</label>
-					<input name="user_file" type="file" id="classListFile"/>
+					<label for="file">File input</label>
+					<input name="file" type="file" id="file"/>
 					<p class="help-block">File format should be: lorem, ipsum, bacon</p>
 				</div>
 				<p>Select Virtual Machines to grant class access to:</p>

@@ -15,6 +15,7 @@ include_once(SERVER_ROOT . '/model/database_model.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/util/logger.php');	
+include_once(SERVER_ROOT . '/util/file_uploads.php');
 
 /**
 * controller class for the admin class manager page
@@ -62,7 +63,10 @@ class Admin_class_manager_Controller{
 			//and now delete the class
 			$result = $dbModel->delete_class($class);
 			$success &= $result['success'];
-			$message .= ($message != '') ? '\n' : '' . $result['message'];
+			$message .= $result['message'];
+			if($result['message'] != ''){
+				$message .= '\n';
+			}
 		}
 
 		//create_class
@@ -73,6 +77,22 @@ class Admin_class_manager_Controller{
 				$result = $dbModel->create_class($name);
 				$success = $result['success'];
 				$message = $result['message'];
+				if(File_Uploads::exists() && $success){
+					
+					$users = File_Uploads::get_users();
+					$result = $dbModel->create_users_in_class($name, $users);
+					$success &= $result['success'];
+					$message .= $result['message'];
+					/*if($users['error']){
+						$success = false;
+						$message .= 'Error processing file';
+					}
+					else{
+						$result = $dbModel->create_users_in_class($name, $users);
+
+					}*/
+
+				}
 			}
 			else{
 				$success = False;
