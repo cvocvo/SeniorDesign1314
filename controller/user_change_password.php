@@ -30,18 +30,44 @@ class User_change_password_Controller{
         $success = False;
         $message = "";
 
-        Logger::log('user_change_password', 'edit user details');
+        $check_pass = $_POST['password'];
 
-        $success = True;
+        $dbModel = new Database_Model;
+        $user = $_COOKIE['username'];
+
+        if($dbModel->authenticate($user, $check_pass)){
+            if($_POST['newpassword'] == $_POST['newpassword2']){
+
+                $result = $dbModel->update_user($user, $_POST['newpassword'], '');
+                $success = $result['success'];
+                $message = $result['message'];
+
+            }
+            else{
+                $success = False;
+                $message = "Passwords do not match";
+            }
+        }
+        else{
+
+            $success = False;
+            $message = 'Failed to authenticate';
+        }
+
 
         $this->main(array());
 
         if($success){
-    		echo '<script>alert("Action completed successfully");</script>';	
-    	}
-    	else{
-    		echo '<script>alert("Error encountered while performing action\n\nERROR:' . $error . '");</script>';
-    	}
+            if($message == ""){
+                echo '<script>alert("Action completed successfully");</script>';    
+            }
+            else{
+                echo '<script>alert("Action completed successfully\n\nNOTE:' . $message . '");</script>';    
+            }
+        }
+        else{
+            echo '<script>alert("Error encountered while performing action\n\nERROR:' . $message . '");</script>';
+        }
     }
 }
 

@@ -47,10 +47,10 @@
 				<input type="hidden" name="page" value="admin_class_view" />
 				<input type="hidden" name="class" value="<?=$data['class'];?>" />
 				<input type="hidden" name="form_id" value="class"/>
-				<div class="form-group">
+				<!--<div class="form-group">
 					<p>Class Name:</p>
 					<input type="text" class="form-control" name="classname" placeholder="Enter your class name">
-				</div>
+				</div>-->
 				<p>Select Virtual Machines to grant class access to:</p>
 				<?php
 				foreach ($data['images'] as $image){
@@ -60,13 +60,13 @@
 					</div>';
 				}
 				?>
-				<button type="submit" name="action" value="save" class="btn btn-success">Change Class Name</button>	
+				<button type="submit" name="action" value="save" class="btn btn-success">Save</button>	
 			<br>
-			<button type="submit" name="action" value="renew" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span> Renew Time Remaining for All VM's</button>
+			<button type="submit" name="action" value="renew" class="btn btn-success"><span class="glyphicon glyphicon-refresh"></span>Renew VMs</button>
 			<br><br>
-			<button type="submit" name="action" value="power_down_vms" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span> Power Down All VM's</button>
+			<button type="submit" name="action" value="power_down_vms" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span>Power Down VMs</button>
 			<br><br>
-			<button type="submit" name="action" value="delete_vms" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete All VM's</button>
+			<button type="submit" name="action" value="delete_vms" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Delete VMs</button>
 			</form>
 		</div>
       </div>
