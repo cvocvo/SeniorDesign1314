@@ -44,7 +44,7 @@ class Admin_class_view_Controller{
 
 			$view->assign('class', $getVars['class']);
 			$view->assign('students', $dbModel->list_students_in_class($getVars['class']));
-			$view->assign('images', $hvModel->get_base_images());
+			$view->assign('images', $dbModel->list_vm_types());
 			$view->assign('user', $_COOKIE['username']);
 
 		}

@@ -55,7 +55,7 @@
 				<?php
 				foreach ($data['images'] as $image){
 					echo '<div class="checkbox"><label>
-					<input type="checkbox" value="' . $image . '">
+					<input type="checkbox" name="' . $image . '" checked>
 					' . $image . '</label>
 					</div>';
 				}

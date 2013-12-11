@@ -682,6 +682,38 @@ Database Actions
 		return $ret;
 
 	}
+
+	/**
+	VM State management
+	*/
+
+	public function list_vm_types(){
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = "SELECT vm_type_name
+		FROM vm_types;";
+		$result = mysqli_query($con, $query);
+
+		$ret = array();
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($ret, $row['vm_type_name']);
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
 }
 
 ?>

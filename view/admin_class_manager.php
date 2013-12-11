@@ -70,7 +70,8 @@
 				<p>Select Virtual Machines to grant class access to:</p>
 				<?php
 				foreach($data['base_images'] as $image){
-					echo '<div class="checkbox"><label><input type="checkbox" value="' .  $image . '">' . $image . '</label></div>';
+					echo '<div class="checkbox"><label><input type="checkbox" checked name="' .  $image . '">
+					' . $image . '</label></div>';
 				}
 				?>
 				<button type="submit" class="btn btn-success">Create Class</button>

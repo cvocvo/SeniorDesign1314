@@ -39,7 +39,7 @@ class Admin_class_manager_Controller{
 		//determine which dynamic variables are needed
 
 		$view->assign('classes', $dbModel->list_classes());
-		$view->assign('base_images', $hvModel->get_base_images());
+		$view->assign('base_images', $dbModel->list_vm_types());
 		
 	}
 
