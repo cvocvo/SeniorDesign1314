@@ -794,14 +794,37 @@ Database Actions
 	}
 
 	public function delete_vm_types_from_class($class){
+		
+		$ret = array('success' => False, 'message' => '');
 
-		/*
-		 DELETE FROM class_vm_types
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$class = mysqli_escape_string($con, $class);
+
+		$query = "DELETE FROM class_vm_types
 		 WHERE class_id = (
 		 	SELECT class_id
 		 	FROM classes
-		 	WHERE class_name = '" . $class . "');
-		 */
+		 	WHERE class_name = '" . $class . "');";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			//Logger::log("database_model", mysqli_error($con));
+			$ret['success'] = False;
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = true;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
 
 	}
 }

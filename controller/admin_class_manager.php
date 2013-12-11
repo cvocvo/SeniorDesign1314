@@ -74,24 +74,31 @@ class Admin_class_manager_Controller{
 			//part 1, create class
 			$name = $_POST['name'];
 			if(ctype_alnum($name)){
+				//create the class
 				$result = $dbModel->create_class($name);
 				$success = $result['success'];
 				$message = $result['message'];
+
+				//create links between class and vm types
+				$images = $dbModel->list_vm_types();
+				foreach($images as $image){
+					if(array_key_exists($image, $_POST)){
+						$result = $dbModel->add_vm_type_to_class($name, $image);
+						$success &= $result['success'];
+						$message .= $result['message'];
+						if($result['message'] != ''){
+							$message .= '\n';
+						}
+					}
+				}
+
+				//create users for class
 				if(File_Uploads::exists() && $success){
 					
 					$users = File_Uploads::get_users();
 					$result = $dbModel->create_users_in_class($name, $users);
 					$success &= $result['success'];
 					$message .= $result['message'];
-					/*if($users['error']){
-						$success = false;
-						$message .= 'Error processing file';
-					}
-					else{
-						$result = $dbModel->create_users_in_class($name, $users);
-
-					}*/
-
 				}
 			}
 			else{

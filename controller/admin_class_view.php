@@ -74,8 +74,23 @@ class Admin_class_view_Controller{
 
 			//save
 			if($action == 'save'){
-				Logger::log('admin_class_view', 'saving changes to class');
-				$success = True;
+
+				$result = $dbModel->delete_vm_types_from_class($class);
+				$success = $result['success'];
+				$message = $result['message'];
+				if($success){
+					$images = $dbModel->list_vm_types();
+					foreach($images as $image){
+						if(array_key_exists($image, $_POST)){
+							$result = $dbModel->add_vm_type_to_class($class, $image);
+							$success &= $result['success'];
+							$message .= $result['message'];
+							if($result['message'] != ''){
+								$message .= '\n';
+							}
+						}
+					}
+				}
 			}
 
 			//renew
