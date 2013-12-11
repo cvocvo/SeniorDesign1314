@@ -46,6 +46,8 @@ class Admin_class_view_Controller{
 			$view->assign('students', $dbModel->list_students_in_class($getVars['class']));
 			$view->assign('images', $dbModel->list_vm_types());
 			$view->assign('user', $_COOKIE['username']);
+			$view->assign('class_images',
+				$dbModel->list_vm_types_for_class($getVars['class']));
 
 		}
 		else{
@@ -63,6 +65,8 @@ class Admin_class_view_Controller{
 
 		$class = (isset($_POST['class'])) ? $_POST['class'] : "";
 		$form_id = $_POST['form_id'];
+
+		$dbModel = new Database_Model;
 
 		if($form_id == 'class'){
 			Logger::log('admin_class_view', 'class form active');

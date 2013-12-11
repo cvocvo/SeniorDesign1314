@@ -54,8 +54,10 @@
 				<p>Select Virtual Machines to grant class access to:</p>
 				<?php
 				foreach ($data['images'] as $image){
+					$checked = (in_array($image, $data['class_images'])) ? 
+						'checked' : '';
 					echo '<div class="checkbox"><label>
-					<input type="checkbox" name="' . $image . '" checked>
+					<input type="checkbox" name="' . $image . '" ' . $checked . '>
 					' . $image . '</label>
 					</div>';
 				}

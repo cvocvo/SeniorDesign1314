@@ -366,15 +366,16 @@ Database Actions
 
 		$user_hash = $this->get_password_hash($user_password, $user_salt);
 
-		$query = "SELECT class_id FROM classes WHERE class_name = '" . $class_name  . "';";
+		/*$query = "SELECT class_id FROM classes WHERE class_name = '" . $class_name  . "';";
 		$result = mysqli_query($con, $query);
 		$row = mysqli_fetch_assoc($result);
-		$class_id = $row['class_id'];
+		$class_id = $row['class_id'];*/
 
 		$query = "INSERT INTO users
 		(user_name, user_hash, user_salt, user_class, user_is_admin)
 		VALUES ('" . $user_name . "', '" . $user_hash . "', '" . $user_salt . "',
-			'" . $class_id . "', '" . $is_admin . "');";
+			(SELECT class_id FROM classes WHERE class_name = '" . $class_name  . "'),
+			'" . $is_admin . "');";
 		$result = mysqli_query($con, $query);
 
 		if(!$result){
@@ -713,6 +714,95 @@ Database Actions
 		mysqli_close($con);
 
 		return $ret;
+	}
+
+	public function add_vm_type_to_class($class, $vm_type){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$class = mysqli_escape_string($con, $class);
+		$vm_type = mysqli_escape_string($con, $vm_type);
+
+		$query = "INSERT INTO class_vm_types
+		VALUES
+			((SELECT class_id
+				FROM classes
+				WHERE class_name = '" . $class . "'),
+			(SELECT vm_type_id
+				FROM vm_types
+				WHERE vm_type_name = '" . $vm_type . "')
+		);";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			//Logger::log("database_model", mysqli_error($con));
+			$ret['success'] = False;
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = true;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function list_vm_types_for_class($class){
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$class = mysqli_escape_string($con, $class);
+
+		$query = "SELECT vm_type_name
+		FROM vm_types
+		JOIN class_vm_types
+		ON vm_types.vm_type_id = class_vm_types.vm_type_id
+		WHERE class_id =
+			(SELECT class_id
+				FROM classes
+				WHERE class_name = '" . $class . "'
+			);";
+		$result = mysqli_query($con, $query);
+
+		$ret = array();
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($ret, $row['vm_type_name']);
+				Logger::log('database_model', $row['vm_type_name']);
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;		
+	}
+
+	public function delete_vm_types_from_class($class){
+
+		/*
+		 DELETE FROM class_vm_types
+		 WHERE class_id = (
+		 	SELECT class_id
+		 	FROM classes
+		 	WHERE class_name = '" . $class . "');
+		 */
+
 	}
 }
 
