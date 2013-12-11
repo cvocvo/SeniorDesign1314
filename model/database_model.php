@@ -465,10 +465,6 @@ Database Actions
 		return $ret;
 	}
 
-	public function change_user_password($user, $new_password){
-
-	}
-
 	public function promote_user_to_admin($user){
 
 		$ret = array('success' => False, 'message' => '');
@@ -620,6 +616,26 @@ Database Actions
 		return $ret;
 	}
 
+	public function delete_users_in_class($class_name){
+
+		$users = $this->list_students_in_class($class_name);
+
+		$success = true;
+		$message = '';
+
+		foreach ($users as $user_name => $user_data) {
+			Logger::log('database_model', 'deleting user ' . $user_name);
+			$result = $this->delete_user($user);
+			$success &= $result['success'];
+			$message .= ($result['message'] != '') ? $user_name . ': ' . $result['message'] . '\n' : '';
+		}
+
+		return array('success' => $success, 'message' => $message);
+	}
+
+	public function create_users_in_class($class_name, $user_list){
+
+	}
 }
 
 ?>

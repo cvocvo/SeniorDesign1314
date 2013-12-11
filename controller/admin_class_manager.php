@@ -51,12 +51,18 @@ class Admin_class_manager_Controller{
 
 		$dbModel = new Database_Model;
 
-		//delete_class
+		//delete_class and users in the class, to prevent 'orphaned' accounts
 		if($form == 'delete_class'){
+			//delete users
 			$class = $_POST['class'];
-			$result = $dbModel->delete_class($class);
+			$result = $dbModel->delete_users_in_class($class);
 			$success = $result['success'];
 			$message = $result['message'];
+
+			//and now delete the class
+			$result = $dbModel->delete_class($class);
+			$success &= $result['success'];
+			$message .= ($message != '') ? '\n' : '' . $result['message'];
 		}
 
 		//create_class
