@@ -794,7 +794,7 @@ Database Actions
 	}
 
 	public function delete_vm_types_from_class($class){
-		
+
 		$ret = array('success' => False, 'message' => '');
 
 		$con = $this->connect();
@@ -825,7 +825,49 @@ Database Actions
 		mysqli_close($con);
 
 		return $ret;
+	}
 
+	public function create_vm($vm_name, $vm_type, $vm_owner){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$vm_name = mysqli_escape_string($con, $vm_name);
+		$vm_type = mysqli_escape_string($con, $vm_type);
+		$vm_owner = mysqli_escape_string($con, $vm_owner);
+
+		$query = "INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner)
+		VALUES ('" . $vm_name . "',
+			(SELECT vm_type_id
+				FROM vm_types
+				WHERE vm_type_name = '" . $vm_type . "'),
+			'not_deployed',
+			(SELECT user_id
+				FROM users
+				WHERE user_name = '" . $vm_owner . "'));";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = True;
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function make_vms_for_user($user){
+		
 	}
 }
 
