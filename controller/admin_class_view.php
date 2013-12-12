@@ -75,6 +75,7 @@ class Admin_class_view_Controller{
 			//save
 			if($action == 'save'){
 
+				$images = $dbModel->list_vm_types();
 				$chosen = array();
 				foreach($images as $image){
 					if(array_key_exists($image, $_POST)){

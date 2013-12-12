@@ -3,10 +3,10 @@
 class Machine_Table_Builder{
 
 	private static $key_tag_map = array(
-		'name' => '%NAME%',
-		'status' => '%STATUS%',
-		'address' => '%ADDRESS%',
-		'time_remaining' => '%TIME_REMAINING%'
+		'vm_name' => '%NAME%',
+		'vm_state' => '%STATUS%',
+		'vm_port' => '%ADDRESS%',
+		'vm_expires' => '%TIME_REMAINING%'
 	);
 
 	private static $status_template_map = array(
@@ -77,8 +77,8 @@ class Machine_Table_Builder{
     );
 
     public static function build($machine, $student, $page_source){
-    	if(is_array($machine) && isset($machine['status'])){
-    		$template = self::$status_template_map[$machine['status']];
+    	if(is_array($machine) && isset($machine['vm_state'])){
+    		$template = self::$status_template_map[$machine['vm_state']];
     		foreach(self::$key_tag_map as $key => $value){
     			if(isset($machine[$key])){
     				$template = str_replace($value, $machine[$key], $template);

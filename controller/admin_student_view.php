@@ -32,7 +32,7 @@ class Admin_student_view_Controller{
         if(isset($getVars['student']) && $dbModel->is_user($getVars['student'])){
 
         	$machine_tables = array();
-        	foreach($hvModel->get_machines_for_user($getVars['student']) as $machine){
+        	foreach($dbModel->list_vms_for_user($getVars['student']) as $machine){
         		$table = Machine_table_builder::build($machine, $getVars['student'], "admin_student_view");
         		if($table != ""){
         			array_push($machine_tables, $table);

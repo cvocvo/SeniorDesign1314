@@ -11,18 +11,9 @@ wide configuration before control is passed to the router.
 // document root of the application files on web server
 define('SERVER_ROOT', '/var/www/wseclab');
 
-// url root of the server
-define('SITE_ROOT', 'http://10.0.2.15/wseclab');
+set_include_path(SERVER_ROOT);
 
-define('LOGFILE', '/var/log/wseclab/wseclab.log');
-
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'wseclab');
-define('DB_USER', 'root');
-define('DB_PASSWORD', 'password');
-
-set_include_path('/var/www/wseclab');
-
+require_once(SERVER_ROOT . '/config/config.php');
 require_once(SERVER_ROOT . '/controller/router.php');
 require_once(SERVER_ROOT . '/util/access_control.php');
 

@@ -15,6 +15,7 @@ include_once(SERVER_ROOT . '/util/access_control.php');
 include_once(SERVER_ROOT . '/model/view.php');
 include_once(SERVER_ROOT . '/model/hypervisor_model.php');
 include_once(SERVER_ROOT . '/util/machine_table_builder.php');
+include_once(SERVER_ROOT . '/model/database_model.php');
 
 class User_index_Controller
 {
@@ -28,9 +29,10 @@ class User_index_Controller
         $user = $_COOKIE['username'];
 
         $hvModel = new Hypervisor_Model;
+        $dbModel = new Database_Model;
 
         $machine_tables = array();
-        foreach($hvModel->get_machines_for_user($user) as $machine){
+        foreach($dbModel->list_vms_for_user($user) as $machine){
         	$table = machine_table_builder::build($machine, $user, "user_index");
         	if($table != ""){
 				array_push($machine_tables, $table);

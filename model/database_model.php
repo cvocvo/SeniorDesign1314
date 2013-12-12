@@ -1028,15 +1028,118 @@ INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner) VALUES ('testin', (SELECT
 	public function update_class($class_name, $vm_types){
 
 		//delete vm type associations
-		$ret = $this->db_delete_vm_types_from_class($class);
+		$ret = $this->db_delete_vm_types_from_class($class_name);
 
 		//create vm type associations
 		foreach ($vm_types as $type) {
-			$result = $this->db_add_vm_type_to_class($class, $vm_type);
+			$result = $this->db_add_vm_type_to_class($class_name, $type);
 			$ret['success'] &= $result['success'];
 		}
 
 		return $ret;
+	}
+
+	private function db_list_static_vms_for_user($user){
+
+		return array();
+		
+		$ret = array('success' => True, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "SELECT vm_type_name
+		FROM vm_types
+		JOIN class_vm_types
+		ON vm_types.vm_type_id = class_vm_types.vm_type_id
+		WHERE class_id =
+			(SELECT user_class
+				FROM users
+				WHERE user_name = '" . $user . "')
+		AND vm_type_static = 0;";
+		$queryres = mysqli_query($con, $query);
+
+		if(!$queryres){
+			$ret['success'] = false;
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($queryres)){
+				$dynamic_image = $row['vm_type_name'];
+				$vm_name = $user . "_" . $dynamic_image;
+				$result = $this->db_create_vm($vm_name, $dynamic_image, $user);
+				$ret['success'] &= $result['success'];
+				$ret['message'] .= $result['message'];
+				if($result['message'] != ''){
+					$ret['message'] .= '\n';
+				}
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function list_vms_for_user($user){
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "SELECT vm_name, vm_state, vm_expires, vm_port
+		FROM vms
+		WHERE vm_owner =
+		(SELECT user_id
+			FROM users
+			WHERE user_name = '" . $user . "');";
+		$queryres = mysqli_query($con, $query);
+
+		if(!$queryres){
+			//$ret['success'] = false;
+			//$ret['message'] = mysqli_error($con);
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+
+			/*
+			'name' => 'matt_attack',
+			'status' => 'online',
+			'time_remaining' => '16:16:16',
+			'address' => '1.2.3.4',
+			'owner' => 'matt'
+			*/
+
+			$ret = array();
+			while($row = mysqli_fetch_assoc($queryres)){
+				array_push($ret, $row);
+				/*$vm_name = $row['vm_name'];
+				$vm_state = $row['vm_state'];
+				$vm_expires = $row['vm_expires'];
+
+				$result = $this->db_create_vm($vm_name, $dynamic_image, $user);
+				$ret['success'] &= $result['success'];
+				$ret['message'] .= $result['message'];
+				if($result['message'] != ''){
+					$ret['message'] .= '\n';
+				}*/
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;	
+
 	}
 }
 
