@@ -75,13 +75,24 @@ class Admin_class_view_Controller{
 			//save
 			if($action == 'save'){
 
-				$result = $dbModel->delete_vm_types_from_class($class);
+				$chosen = array();
+				foreach($images as $image){
+					if(array_key_exists($image, $_POST)){
+						array_push($chosen, $image);
+					}
+				}
+
+				$result = $dbModel->update_class($class, $chosen);
 				$success = $result['success'];
 				$message = $result['message'];
+
+
+				/*
+				$result = $dbModel->delete_vm_types_from_class($class);
+				
 				if($success){
 					$images = $dbModel->list_vm_types();
-					foreach($images as $image){
-						if(array_key_exists($image, $_POST)){
+					
 							$result = $dbModel->add_vm_type_to_class($class, $image);
 							$success &= $result['success'];
 							$message .= $result['message'];
@@ -90,7 +101,7 @@ class Admin_class_view_Controller{
 							}
 						}
 					}
-				}
+				}*/
 			}
 
 			//renew

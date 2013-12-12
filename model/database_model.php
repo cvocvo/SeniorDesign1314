@@ -347,7 +347,7 @@ Database Queries
 Database Actions
 */
 
-	public function create_user($user_name, $user_password, $class_name, $is_admin){
+	private function db_create_user($user_name, $user_password, $class_name, $is_admin){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -525,7 +525,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function delete_user($user_name){
+	public function db_delete_user($user_name){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -554,7 +554,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function create_class($class_name){
+	private function db_create_class($class_name){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -584,11 +584,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function update_class($class_name){
-
-	}
-
-	public function delete_class($class_name){
+	private function db_delete_class($class_name){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -617,7 +613,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function delete_users_in_class($class_name){
+	private function db_delete_users_in_class($class_name){
 
 		$users = $this->list_students_in_class($class_name);
 
@@ -647,7 +643,7 @@ Database Actions
 		return array('success' => $success, 'message' => $message);
 	}
 
-	public function create_users_in_class($class_name, $user_list){
+	private function db_create_users_in_class($class_name, $user_list){
 
 		$ret = array('success' => True, 'message' => '');
 
@@ -716,7 +712,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function add_vm_type_to_class($class, $vm_type){
+	private function db_add_vm_type_to_class($class, $vm_type){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -749,7 +745,7 @@ Database Actions
 		else{
 			$ret['success'] = true;
 		}
-
+		
 		mysqli_close($con);
 
 		return $ret;
@@ -793,7 +789,7 @@ Database Actions
 		return $ret;		
 	}
 
-	public function delete_vm_types_from_class($class){
+	private function db_delete_vm_types_from_class($class){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -827,7 +823,7 @@ Database Actions
 		return $ret;
 	}
 
-	public function create_vm($vm_name, $vm_type, $vm_owner){
+	private function db_create_vm($vm_name, $vm_type, $vm_owner){
 
 		$ret = array('success' => False, 'message' => '');
 
@@ -840,6 +836,12 @@ Database Actions
 		$vm_name = mysqli_escape_string($con, $vm_name);
 		$vm_type = mysqli_escape_string($con, $vm_type);
 		$vm_owner = mysqli_escape_string($con, $vm_owner);
+
+		/*
+INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner) VALUES ('testin', (SELECT vm_type_id FROM vm_types WHERE vm_type_name = 'client'), 'not_deployed', (SELECT user_id FROM users WHERE user_name = 'george'));
+
+		*/
+
 
 		$query = "INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner)
 		VALUES ('" . $vm_name . "',
@@ -866,8 +868,175 @@ Database Actions
 		return $ret;
 	}
 
-	public function make_vms_for_user($user){
+	private function db_delete_user_vms($user){
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		//SELECT vm_type_name FROM vm_types JOIN class_vm_types ON vm_types.vm_type_id = class_vm_types.vm_type_id WHERE class_id = (SELECT user_class FROM users WHERE user_name = '" . $user . "') AND vm_type_static = 0;
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = 
+		"
+		DELETE FROM vms
+		WHERE vm_owner =
+		(SELECT user_id
+			FROM users
+			WHERE user_name = '" . $user . "');
+		";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			$ret['success'] = False;
+			$ret['message'] = mysqli_error($con);
+		}
 		
+		else{
+			$ret['success'] = True;
+			$ret['message'] = '';
+		}
+
+		mysqli_close($con);
+
+		return $ret;	
+	}
+
+	/**
+	creates slots for dynamic vms for user
+	*/
+	private function db_make_vms_for_user($user){
+
+		$ret = array('success' => True, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		//SELECT vm_type_name FROM vm_types JOIN class_vm_types ON vm_types.vm_type_id = class_vm_types.vm_type_id WHERE class_id = (SELECT user_class FROM users WHERE user_name = '" . $user . "') AND vm_type_static = 0;
+
+		$user = mysqli_escape_string($con, $user);
+
+		$query = "SELECT vm_type_name
+		FROM vm_types
+		JOIN class_vm_types
+		ON vm_types.vm_type_id = class_vm_types.vm_type_id
+		WHERE class_id =
+			(SELECT user_class
+				FROM users
+				WHERE user_name = '" . $user . "')
+		AND vm_type_static = 0;";
+		$queryres = mysqli_query($con, $query);
+
+		if(!$queryres){
+			$ret['success'] = false;
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($queryres)){
+				$dynamic_image = $row['vm_type_name'];
+				$vm_name = $user . "_" . $dynamic_image;
+				$result = $this->db_create_vm($vm_name, $dynamic_image, $user);
+				$ret['success'] &= $result['success'];
+				$ret['message'] .= $result['message'];
+				if($result['message'] != ''){
+					$ret['message'] .= '\n';
+				}
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;	
+		
+	}
+
+	public function create_user($user, $pass, $class, $admin){
+		//create user
+		$ret = $this->db_create_user($user, $pass, $class, $admin);
+
+		//create vms for user
+		if($ret['success']){
+			$result = $this->db_make_vms_for_user($user);
+			$ret['success'] &= $result['success'];
+			$ret['message'] .= $result['message'];
+			$ret['message'] .= ($result['message'] != '') ? '\n' : '';
+		}
+
+		return $ret;
+	}
+
+	public function delete_user($user){
+		//delete vms for user
+		$ret = $this->db_delete_user_vms($user);
+
+		//delete user
+		if($ret['success']){
+			$result = $this->db_delete_user($user);
+			$ret['success'] &= $result['success'];
+			$ret['message'] .= $result['message'];
+			$ret['message'] .= ($result['message'] != '') ? '\n' : '';
+		}
+
+		return $ret;
+	}
+
+	public function create_class($class, $vm_types, $user_list){
+		//create class
+		$ret = $this->db_create_class($class);
+
+		
+		if($ret['success']){
+			//create vm_type associations
+			foreach ($vm_types as $type) {
+				$result = $this->db_add_vm_type_to_class($class, $type);
+				$ret['success'] &= $result['success'];
+				$ret['message'] .= $result['message'];
+				$ret['message'] .= ($result['message'] != '') ? '\n' : '';
+			}
+
+			//create user lists
+			$result = $this->db_create_users_in_class($class, $user_list);
+			$ret['success'] &= $result['success'];
+			$ret['message'] .= $result['message'];
+			$ret['message'] .= ($result['message'] != '') ? '\n' : '';
+		}
+
+		return $ret;
+	}
+
+	public function delete_class($class){
+		//delete users in class
+		$ret = $this->db_delete_users_in_class($class);
+
+		//delete vm type associations
+		$result = $this->db_delete_vm_types_from_class($class);
+		$ret['success'] &= $result['success'];
+
+		//delete class
+		$result = $this->db_delete_class($class);
+		$ret['success'] &= $result['success'];
+
+		return $ret;
+	}
+
+	public function update_class($class_name, $vm_types){
+
+		//delete vm type associations
+		$ret = $this->db_delete_vm_types_from_class($class);
+
+		//create vm type associations
+		foreach ($vm_types as $type) {
+			$result = $this->db_add_vm_type_to_class($class, $vm_type);
+			$ret['success'] &= $result['success'];
+		}
+
+		return $ret;
 	}
 }
 

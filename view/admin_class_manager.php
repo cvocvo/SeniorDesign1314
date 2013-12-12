@@ -39,10 +39,10 @@
 					<?php
 					foreach ($data['classes'] as $class){
 						$disabled = ($class == 'default') ? 'disabled' : '';
-						echo '<li><a href="'. SITE_ROOT . '/index.php?admin_class_view&class=' . $class . '">' . $class . '</a>
+						echo '<li><table width="100%"><tr><td><a href="'. SITE_ROOT . '/index.php?admin_class_view&class=' . $class . '">' . $class . '</a>
 							<button type="submit" name="class" value="' . $class . '" class="btn btn-danger pull-right"' . $disabled . '>
 								<span class="glyphicon glyphicon-remove"></span> Remove Class</button>
-							</li>';
+							</td></tr></table></li>';
 					}
 					?>
 				</form>

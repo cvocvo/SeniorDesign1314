@@ -85,10 +85,10 @@
 				<?php
 				foreach ($data['students'] as $student_name => $student_info){
 					$disabled = ($student_name == $data['user']) ? 'disabled' : '';
-					echo '<li>
+					echo '<li><table width="100%"><tr><td> 
 						<a href="' . SITE_ROOT . '/index.php?admin_student_view&student=' . $student_name . '">' . $student_name . '</a>
 						<button type="submit" name="student" value="' . $student_name . '" class="btn btn-danger pull-right" ' . $disabled . '><span class="glyphicon glyphicon-remove"></span>Delete Student</button>	
-					</li>
+					</td></tr></table></li>
 					';
 				}
 				?>

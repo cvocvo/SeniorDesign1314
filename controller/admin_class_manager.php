@@ -56,7 +56,10 @@ class Admin_class_manager_Controller{
 		if($form == 'delete_class'){
 			//delete users
 			$class = $_POST['class'];
-			$result = $dbModel->delete_users_in_class($class);
+			$result = $dbModel->delete_class($class);
+			$success = $result['success'];
+			$message = $result['message'];
+			/*$result = $dbModel->delete_users_in_class($class);
 			$success = $result['success'];
 			$message = $result['message'];
 
@@ -66,7 +69,7 @@ class Admin_class_manager_Controller{
 			$message .= $result['message'];
 			if($result['message'] != ''){
 				$message .= '\n';
-			}
+			}*/
 		}
 
 		//create_class
@@ -75,14 +78,30 @@ class Admin_class_manager_Controller{
 			$name = $_POST['name'];
 			if(ctype_alnum($name)){
 				//create the class
-				$result = $dbModel->create_class($name);
+
+				$users = array();
+				if(File_Uploads::exists()){
+					$users = File_Uploads::get_users();
+				}
+
+				$images = $dbModel->list_vm_types();
+				$chosen = array();
+				foreach($images as $image){
+					if(array_key_exists($image, $_POST)){
+						array_push($chosen, $image);
+					}
+				}
+
+				$result = $dbModel->create_class($name, $chosen, $users);
 				$success = $result['success'];
 				$message = $result['message'];
 
+				/*
+				$result = $dbModel->create_class($name);
+				
+
 				//create links between class and vm types
-				$images = $dbModel->list_vm_types();
-				foreach($images as $image){
-					if(array_key_exists($image, $_POST)){
+				
 						$result = $dbModel->add_vm_type_to_class($name, $image);
 						$success &= $result['success'];
 						$message .= $result['message'];
@@ -90,16 +109,26 @@ class Admin_class_manager_Controller{
 							$message .= '\n';
 						}
 					}
-				}
+				}*/
 
 				//create users for class
-				if(File_Uploads::exists() && $success){
-					
-					$users = File_Uploads::get_users();
-					$result = $dbModel->create_users_in_class($name, $users);
+				
+					/*$result = $dbModel->create_users_in_class($name, $users);
 					$success &= $result['success'];
 					$message .= $result['message'];
-				}
+					if($result['message'] != ''){
+						$message .= '\n';
+					}
+
+					if($result['success']){
+						$result = $dbModel->make_vms_for_user($name);
+						$success &= $result['success'];
+						$message .= $result['message'];
+						if($result['message'] != ''){
+							$message .= '\n';
+						}
+					}*/
+				//}
 			}
 			else{
 				$success = False;
@@ -122,6 +151,15 @@ class Admin_class_manager_Controller{
 					$result = $dbModel->create_user($name, $pass, $class, $is_admin);
 					$success = $result['success'];
 					$message = $result['message'];
+
+					/*if($result['success']){
+						$result = $dbModel->make_vms_for_user($name);
+						$success &= $result['success'];
+						$message .= $result['message'];
+						if($result['message'] != ''){
+							$message .= '\n';
+						}
+					}*/
 				}
 				else{
 					$success = False;

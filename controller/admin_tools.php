@@ -96,6 +96,15 @@ class Admin_tools_Controller{
                     $result = $dbModel->create_user($name, $pass, $class, $is_admin);
                     $success = $result['success'];
                     $message = $result['message'];
+
+                    /*if($result['success']){
+                        $result = $dbModel->make_vms_for_user($name);
+                        $success &= $result['success'];
+                        $message .= $result['message'];
+                        if($result['message'] != ''){
+                            $message .= '\n';
+                        }
+                    }*/
                 }
                 else{
                     $success = False;
