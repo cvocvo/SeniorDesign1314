@@ -1141,6 +1141,95 @@ INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner) VALUES ('testin', (SELECT
 		return $ret;	
 
 	}
+
+	public function list_used_ports(){
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = "SELECT vm_port FROM vms WHERE vm_port IS NOT NULL";
+		$result = mysqli_query($con, $query);
+
+		$ret = array();
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($ret, $row['vm_port']);
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;	 
+	}
+
+	public function vm_set_port($vm_name, $port){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$vm_name = mysqli_escape_string($con, $vm_name);
+		$port = mysqli_escape_string($con, $port);
+
+		Logger::log('database_model', $vm_name . ' ' . $port);
+
+		$query = "UPDATE vms SET vm_port = " . $port . " WHERE vm_name = '" . $vm_name . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			//Logger::log("database_model", mysqli_error($con));
+			$ret['success'] = False;
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = true;
+		}
+		
+		mysqli_close($con);
+
+		return $ret;
+	}
+
+	public function list_users(){
+
+		$con = $this->connect();
+		if(!$con){
+			return $this->report_error();
+		}
+
+		$query = "SELECT user_name
+		FROM users;";
+		$result = mysqli_query($con, $query);
+
+		$ret = array();
+
+		if(!$result){
+			Logger::log("database_model", mysqli_error($con));
+		}
+		
+		else{
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($ret, $row['user_name']);
+			}
+		}
+
+		mysqli_close($con);
+
+		return $ret;
+
+	}
 }
 
 ?>

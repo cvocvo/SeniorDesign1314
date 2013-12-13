@@ -108,7 +108,14 @@ class Admin_student_view_Controller{
             $machine = $_POST['machine'];
             $action = (isset($_POST['action'])) ? $_POST['action'] : "";
 
+            $exp = explode("_", $machine);
+            $user = $exp[0];
+            $type = $exp[1];
+
+            $hvModel = new Hypervisor_Model;
+
             if($action == 'power_off'){
+
                 $success = True;
 
                 Logger::log('admin_student_view', 'power off');
@@ -127,8 +134,11 @@ class Admin_student_view_Controller{
             }
 
             elseif ($action == 'deploy') {
+                $hvModel->clone_vm($user, $type);
+
+
                 $success = True;
-                $message = 'Cloning may take up to 30 minutes';
+                $message = 'Cloning may take up to 5 minutes';
 
                 Logger::log('admin_student_view', 'deploy');
             }

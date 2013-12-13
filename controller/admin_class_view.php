@@ -39,7 +39,6 @@ class Admin_class_view_Controller{
 
 			$view = new View_Model($this->template);
 
-			$hvModel->get_base_images();
 			$dbModel->list_students_in_class($getVars['class']);
 
 			$view->assign('class', $getVars['class']);
