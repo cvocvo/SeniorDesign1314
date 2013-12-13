@@ -95,8 +95,8 @@ Hypervisor Actions
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
 
-		$cmd = ' echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now'; //> /dev/null 2>/dev/null &';
-
+		$cmd = //'echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now'; //> /dev/null 2>/dev/null &';
+			'php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . ' &> /dev/null &';
 		Logger::log('hypervisor_model', $cmd);
 
 		exec($cmd);

@@ -1,7 +1,10 @@
 <?php
 
-include_once("../config/config.php");
-include_once("../util/logger.php");
+define('SERVER_ROOT', '/var/www/wseclab');
+set_include_path(SERVER_ROOT);
+
+include_once(SERVER_ROOT . "/config/config.php");
+include_once(SERVER_ROOT . "/util/logger.php");
 
 Logger::log('clone_fork', 'the thing is going');
 
