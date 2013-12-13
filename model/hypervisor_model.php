@@ -39,25 +39,43 @@ Hypervisor Getters
 Hypervisor Actions
 */
 
-	private function get_unused_port(){
-		$range = array();
-		for($i = 5911; $i < 9900; $i++){
-			array_push($range, strval($i));
+	private function diff($a1, $a2){
+
+		$ret = array();
+		foreach($a1 as $check){
+			$good = true;
+			foreach($a2 as $used){
+				if($check == $used){
+					$good = false;
+				}
+			}
+			if($good){
+				array_push($ret, $check);
+			}
 		}
 
+		return $ret;
+	}
+
+	private function get_unused_port(){
+		$range = array();
+		for($i = 5912; $i <= 9900; $i++){
+			array_push($range, $i);
+		}
 
 		$dbModel = new Database_Model;
 		$used = $dbModel->list_used_ports();
 
-		Logger::log('hypervisor_model', 'HOW MANY PORTS ARE TAKEN???? ' . count($used));
-		Logger::log('hypervisor_model', 'WHAT PORT IS IT? ' . $used[0]);
-		Logger::log('hypervisor_model', 'WHAT IS THIS THING?? ' . gettype($used[0]));
+		$usedint = array();
+		foreach($used as $u){
+			array_push($usedint, intval($u));
+		}
 
 		foreach($used as $u){
 			Logger::log('hypervisor_model', $u);
 		}
 
-		$open = array_diff($range, $used);
+		$open = $this->diff($range, $used);
 
 		return $open[0];
 	}
@@ -77,9 +95,11 @@ Hypervisor Actions
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
 
-		//$cmd = 'echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now';
+		$cmd = ' echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now'; //> /dev/null 2>/dev/null &';
 
-		//exec($cmd);
+		Logger::log('hypervisor_model', $cmd);
+
+		exec($cmd);
 
 		//Logger::log('hypervisor_model', 'cloning script started');
 

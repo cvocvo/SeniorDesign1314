@@ -1,6 +1,9 @@
 <?php
 
 include_once("../config/config.php");
+include_once("../util/logger.php");
+
+Logger::log('clone_fork', 'the thing is going');
 
 $ssh = ssh2_connect(HV_HOST, 22);
 
@@ -11,9 +14,14 @@ $port = $argv[2];
 $type = $argv[3];
 
 $stream = ssh2_exec($ssh,
-	"/vmfs/volumes/datastore1/wnsl-tools/clone_" . $type . ".sh " . $user . " 7274");// . $port);
+	"/vmfs/volumes/datastore1/wnsl-tools/clone_" . $type . ".sh " . $user . " " . $port);
+
+Logger::log('clone_fork', 'the ssh went');
+
 
 sleep(180);
+
+Logger::log('clone_fork', 'slept');
 
 fclose($stream);
 
