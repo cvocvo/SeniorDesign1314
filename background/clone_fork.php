@@ -24,6 +24,10 @@ Logger::log('clone_fork', 'the ssh went');
 
 sleep(180);
 
+if($type = 'attacker'){
+	sleep(240);
+}
+
 Logger::log('clone_fork', 'slept');
 
 fclose($stream);
