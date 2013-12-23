@@ -1202,6 +1202,37 @@ INSERT INTO vms (vm_name, vm_type, vm_state, vm_owner) VALUES ('testin', (SELECT
 		return $ret;
 	}
 
+	public function vm_set_state($vm_name, $vm_state){
+
+		$ret = array('success' => False, 'message' => '');
+
+		$con = $this->connect();
+		if(!$con){
+			$ret['message'] = mysqli_connect_error();
+			return $ret;
+		}
+
+		$vm_name = mysqli_escape_string($con, $vm_name);
+		$vm_state = mysqli_escape_string($con, $vm_state);
+
+		$query = "UPDATE vms SET vm_state = '" . $vm_state . "' WHERE vm_name = '" . $vm_name . "';";
+		$result = mysqli_query($con, $query);
+
+		if(!$result){
+			//Logger::log("database_model", mysqli_error($con));
+			$ret['success'] = False;
+			$ret['message'] = mysqli_error($con);
+		}
+		
+		else{
+			$ret['success'] = true;
+		}
+		
+		mysqli_close($con);
+
+		return $ret;
+	}
+
 	public function list_users(){
 
 		$con = $this->connect();

@@ -1,6 +1,7 @@
 <?php
 
 include_once(SERVER_ROOT . '/model/database_model.php');
+include_once(SERVER_ROOT . '/util/action_queue.php');
 
 /**
 Model of the hypervisor
@@ -88,6 +89,7 @@ Hypervisor Actions
 
 		$dbModel = new Database_Model;
 		$dbModel->vm_set_port($vm_name, $port);
+		$dbModel->vm_set_state($vm_name, 'cloning');
 
 		$type = ($type == "client") ? "defender" : $type;
 
@@ -95,13 +97,15 @@ Hypervisor Actions
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
 
-		$cmd = //'echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now'; //> /dev/null 2>/dev/null &';
+		/*$cmd = //'echo "php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . '" | at now'; //> /dev/null 2>/dev/null &';
 			'php ' . SERVER_ROOT . '/background/clone_fork.php ' . $user . ' ' . $port . ' ' . $type . ' &> /dev/null &';
 		Logger::log('hypervisor_model', $cmd);
 
-		exec($cmd);
+		exec($cmd);*/
 
 		//Logger::log('hypervisor_model', 'cloning script started');
+
+		Action_Queue::add_action('clone', $type, $user, $port);
 
 		return;
 	}
@@ -112,15 +116,18 @@ Hypervisor Actions
 		
 		$dbModel = new Database_Model;
 		$dbModel->vm_set_port($vm_name, "NULL");
+		$dbModel->vm_set_state($vm_name, 'deleting');
 
 		$type = ($type == "client") ? "defender" : $type;
 
 		//run detached completely from parent process
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/delete_fork.php ' . $user . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
-		$cmd = 'echo "php ' . SERVER_ROOT . '/background/delete_fork.php ' . $user .  ' ' . $type . '" | at now';
+		//$cmd = 'echo "php ' . SERVER_ROOT . '/background/delete_fork.php ' . $user .  ' ' . $type . '" | at now';
 
-		exec($cmd);
+		//exec($cmd);
+
+		Action_Queue::add_action('delete', $type, $user, '');
 
 		return;
 	}
@@ -129,13 +136,18 @@ Hypervisor Actions
 
 		$type = ($type == "client") ? "defender" : $type;
 
+		$dbModel = new Database_Model;
+		$dbModel->vm_set_state($vm_name, 'powering on');
+
 		//run detached completely from parent process
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/on_fork.php ' . $user . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
 
-		$cmd = 'echo "php ' . SERVER_ROOT . '/background/poweron_fork.php ' . $user .  ' ' . $type . '" | at now';
+		// $cmd = 'echo "php ' . SERVER_ROOT . '/background/poweron_fork.php ' . $user .  ' ' . $type . '" | at now';
 
-		exec($cmd);
+		// exec($cmd);
+
+		Action_Queue::add_action('poweron', $type, $user, '');
 
 		return;
 	}
@@ -144,13 +156,18 @@ Hypervisor Actions
 
 		$type = ($type == "client") ? "defender" : $type;
 
+		$dbModel = new Database_Model;
+		$dbModel->vm_set_state($vm_name, 'powering off');
+
 		//run detached completely from parent process
 		//$cmd = 'bash -c "exec nohup setsid php ' . SERVER_ROOT . '/background/off_fork.php ' . $user . ' ' . $type
 		//	. ' > /dev/null 2>&1 &"';
 
-		$cmd = 'echo "php ' . SERVER_ROOT . '/background/poweron_fork.php ' . $user .  ' ' . $type . '" | at now';
+		// $cmd = 'echo "php ' . SERVER_ROOT . '/background/poweron_fork.php ' . $user .  ' ' . $type . '" | at now';
 
-		exec($cmd);
+		// exec($cmd);
+
+		Action_Queue::add_action('poweroff', $type, $user, '');
 
 		return;
 	}

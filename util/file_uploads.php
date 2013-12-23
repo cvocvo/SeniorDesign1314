@@ -14,7 +14,6 @@ class File_Uploads{
 
 		$array = preg_split("/\W/", file_get_contents($file));
 
-		//drop that fucking whitespace bitch
 		$array = array_slice($array, 0, count($array) - 1);
 
 		return $array;

@@ -1,6 +1,10 @@
 <?php
 
-include_once("../config/config.php");
+define('SERVER_ROOT', '/var/www/wseclab');
+set_include_path(SERVER_ROOT);
+
+include_once(SERVER_ROOT . "/config/config.php");
+include_once(SERVER_ROOT . "/model/database_model.php");
 
 $ssh = ssh2_connect(HV_HOST, 22);
 
@@ -15,5 +19,10 @@ $stream = ssh2_exec($ssh,
 sleep(5);
 
 fclose($stream);
+
+$vm_name = ($type = 'defender') ? $user . '_client' : $user . '_' . $type;
+
+$dbModel = new Database_Model;
+$dbModel->vm_set_state($vm_name, 'online');
 
 ?>

@@ -115,19 +115,21 @@ class Admin_student_view_Controller{
             $hvModel = new Hypervisor_Model;
 
             if($action == 'power_off'){
-
+                $hvModel->power_off_vm($user, $type);
                 $success = True;
 
                 Logger::log('admin_student_view', 'power off');
             }
 
             elseif ($action == 'power_on') {
+                $hvModel->power_on_vm($user, $type);
                 $success = True;
 
                 Logger::log('admin_student_view', 'power on');
             }
 
             elseif ($action == 'delete'){
+                $hvModel->delete_vm($user, $type);
                 $success = True;
 
                 Logger::log('admin_student_view', 'delete');
