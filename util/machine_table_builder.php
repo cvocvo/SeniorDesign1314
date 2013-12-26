@@ -66,7 +66,7 @@ class Machine_Table_Builder{
 		</div>
 		<div class="col-md-11">
 			<h3 class="clearMargin">%NAME% &mdash; Status: %STATUS%</h3>
-			<p class="padT10"><strong>Port:</strong> %ADDRESS%</p>
+			<!--<p class="padT10"><strong>Port:</strong> %ADDRESS%</p>-->
 			<p class="padT10">This virtual machine has not yet been deployed.</p>
 			<div class="padT10">
 				<button type="submit" name="action" value="deploy" class="btn btn-success"><span class="glyphicon glyphicon-export"></span> Deploy Virtual Machine</button>
@@ -85,7 +85,11 @@ class Machine_Table_Builder{
 		<div class="col-md-11">
 			<h3 class="clearMargin">%NAME% &mdash; Status: %STATUS%</h3>
 			<p class="padT10"><strong>Port:</strong> %ADDRESS%</p>
-		</div>
+			<div class="padT10">
+				<p>Please use this button to check progress. Reloading the page will resubmit the action</p>
+				<a href="%URL%" class="btn btn-success"><span class="glyphicon glyphicon-flash"></span>Refresh Page</a>
+			</div>				
+		</div>		
       </div>
       </form>
     '
@@ -103,6 +107,8 @@ class Machine_Table_Builder{
     		}
     		$template = str_replace('%PAGE%', $page_source, $template);
     		$template = str_replace('%STUDENT%', $student, $template);
+    		$url = SITE_ROOT . '/index.php?' . $page_source . '&student=' . $student;  
+    		$template = str_replace('%URL%', $url, $template);
     		return $template;
     	}
     	return "";

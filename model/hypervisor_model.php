@@ -134,6 +134,8 @@ Hypervisor Actions
 
 	public function power_on_vm($user, $type){
 
+		$vm_name = $user . "_" . $type;
+
 		$type = ($type == "client") ? "defender" : $type;
 
 		$dbModel = new Database_Model;
@@ -153,6 +155,8 @@ Hypervisor Actions
 	}
 
 	public function power_off_vm($user, $type){
+
+		$vm_name = $user . "_" . $type;
 
 		$type = ($type == "client") ? "defender" : $type;
 

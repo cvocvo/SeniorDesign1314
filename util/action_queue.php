@@ -13,7 +13,7 @@ class Action_Queue{
 
 		fclose($file);
 
-		chmod(QUEUE_FILE, 0777);
+		//chmod(QUEUE_FILE, 0777);
 
 	}
 

@@ -20,6 +20,6 @@ define("HV_HOST", "129.186.215.200");
 define("HV_USER", "root");
 define("HV_PASSWORD", "X8DLT-3F");
 
-define("QUEUE_FILE", "/tmp/queue");
+define("QUEUE_FILE", "/var/www/wseclab/background/queue");
 
 ?>
